@@ -132,16 +132,16 @@
     </dependencyManagement>
 
     <build>
-        <!--<finalName>${project.artifactId}</finalName>-->
-        <!--<filters>-->
-            <!--<filter>src/main/resources/bootstrap.properties</filter>-->
-        <!--</filters>-->
-        <!--<resources>-->
-            <!--<resource>-->
-                <!--<directory>src/main/resources</directory>-->
-                <!--<filtering>true</filtering>-->
-            <!--</resource>-->
-        <!--</resources>-->
+        <finalName>${project.artifactId}</finalName>
+        <filters>
+            <filter>src/main/resources/bootstrap.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <!-- spring maven插件 -->
             <plugin>
@@ -157,32 +157,48 @@
     <profiles>
         <profile>
             <!-- 本地开发环境 -->
-            <id>local</id>
+            <id>LOCAL</id>
             <activation>
                 <!-- 设置默认激活这个配置 -->
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
+            <properties>
+                <environment>LOCAL</environment>
+                <nacos.host>127.0.0.1:8848</nacos.host>
+            </properties>
         </profile>
         <profile>
             <!-- 开发测试环境 -->
-            <id>dev</id>
+            <id>DEV</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <environment>DEV</environment>
+                <nacos.host>192.168.137.202:8848</nacos.host>
+            </properties>
         </profile>
         <profile>
             <!-- 正式测试环境 -->
-            <id>test</id>
+            <id>TEST</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
+            <properties>
+                <environment>TEST</environment>
+                <nacos.host>192.168.137.202:8848</nacos.host>
+            </properties>
         </profile>
         <profile>
             <!-- 生产发布环境 -->
-            <id>release</id>
+            <id>RELEASE</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
+            <properties>
+                <environment>RELEASE</environment>
+                <nacos.host>192.168.137.202:8848</nacos.host>
+            </properties>
         </profile>
     </profiles>
 
