@@ -4,8 +4,4 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.137.202:8848
-server:
-  port: 4000
-#hello:
-#  name: zhangsan
+        server-addr: @nacos.addr@

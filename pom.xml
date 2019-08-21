@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>service-fstructure</name>
+    <name>servicefstructure</name>
     <description>功能结构管理服务（生产者）</description>
 
     <parent>
@@ -20,7 +20,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
-        <nacos-discovery.version>0.2.2.RELEASE</nacos-discovery.version>
+        <nacos-spring.version>0.9.0.RELEASE</nacos-spring.version>
         <mysql-connector-java.version>5.1.47</mysql-connector-java.version>
         <druid.version>1.1.12</druid.version>
         <mybatis-spring-boot.version>2.0.0</mybatis-spring-boot.version>
@@ -55,13 +55,13 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>${nacos-discovery.version}</version>
+            <version>${nacos-spring.version}</version>
         </dependency>
         <!-- 服务配置依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>${nacos-discovery.version}</version>
+            <version>${nacos-spring.version}</version>
         </dependency>
         <!--&lt;!&ndash; 热部署工具依赖 &ndash;&gt;-->
         <!--<dependency>-->
@@ -133,6 +133,7 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
+        <!-- 提供配置文件位置 -->
         <filters>
             <filter>src/main/resources/bootstrap.properties</filter>
         </filters>
@@ -157,47 +158,51 @@
     <profiles>
         <profile>
             <!-- 本地开发环境 -->
-            <id>LOCAL</id>
+            <id>local</id>
             <activation>
                 <!-- 设置默认激活这个配置 -->
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <environment>LOCAL</environment>
-                <nacos.host>127.0.0.1:8848</nacos.host>
+                <environment>local</environment>
+                <nacos.addr>192.168.137.202:8848</nacos.addr>
+                <nacos.namespace>6a1c7bf6-6e97-48c1-8e9e-86e11cc25910</nacos.namespace>
             </properties>
         </profile>
         <profile>
             <!-- 开发测试环境 -->
-            <id>DEV</id>
+            <id>dev</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <environment>DEV</environment>
-                <nacos.host>192.168.137.202:8848</nacos.host>
+                <environment>dev</environment>
+                <nacos.addr>192.168.137.202:8848</nacos.addr>
+                <nacos.namespace>4f5bca49-fafd-4f0a-9606-7de1b2f3a425</nacos.namespace>
             </properties>
         </profile>
         <profile>
             <!-- 正式测试环境 -->
-            <id>TEST</id>
+            <id>test</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <environment>TEST</environment>
-                <nacos.host>192.168.137.202:8848</nacos.host>
+                <environment>test</environment>
+                <nacos.addr>192.168.137.202:8848</nacos.addr>
+                <nacos.namespace>a98ec9c4-baa4-45aa-a2d0-8c1a2732d03d</nacos.namespace>
             </properties>
         </profile>
         <profile>
             <!-- 生产发布环境 -->
-            <id>RELEASE</id>
+            <id>release</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <environment>RELEASE</environment>
-                <nacos.host>192.168.137.202:8848</nacos.host>
+                <environment>release</environment>
+                <nacos.addr>192.168.137.202:8848</nacos.addr>
+                <nacos.namespace>d1f7e93c-7790-4dd3-bbca-7b2dfd099cae</nacos.namespace>
             </properties>
         </profile>
     </profiles>
