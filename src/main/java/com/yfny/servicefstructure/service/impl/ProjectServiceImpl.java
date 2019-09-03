@@ -4,12 +4,12 @@ import com.yfny.servicefstructure.entity.ProjectEntity;
 import com.yfny.servicefstructure.mapper.ProjectMapper;
 import com.yfny.servicefstructure.service.ProjectService;
 import com.yfny.utilscommon.basemvc.common.BusinessException;
+import com.yfny.utilscommon.basemvc.producer.BaseMapper;
+import com.yfny.utilscommon.basemvc.producer.BaseServiceImpl;
 import com.yfny.utilscommon.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * 功能结构管理项目对象ServiceImpl
@@ -17,34 +17,27 @@ import java.util.List;
  * Date  2019-08-21
  */
 @Service
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceImpl extends BaseServiceImpl<ProjectEntity> implements ProjectService {
 
     @Autowired
     private ProjectMapper projectMapper;
 
+    @Override
+    public BaseMapper<ProjectEntity> getBaseMapper() {
+        return this.projectMapper;
+    }
+
+    @Override
     @Transactional
-    public int insert(ProjectEntity entity) throws BusinessException {
+    public int insertSelective(ProjectEntity entity) throws BusinessException {
         this.validateProject(entity);
-        return projectMapper.insertSelective(entity);
+        return super.insertSelective(entity);
     }
 
-    @Transactional
-    public int update(ProjectEntity entity) {
-        return projectMapper.updateByPrimaryKeySelective(entity);
-    }
-
-    @Transactional
-    public int delete(ProjectEntity entity) throws BusinessException {
-        return projectMapper.delete(entity);
-    }
-
+    @Override
     public ProjectEntity selectOne(ProjectEntity entity) throws BusinessException {
         this.validateProject1(entity);
-        return projectMapper.selectOne(entity);
-    }
-
-    public List<ProjectEntity> findList(ProjectEntity entity) throws BusinessException {
-        return projectMapper.selectAll();
+        return super.selectOne(entity);
     }
 
     public boolean permission(ProjectEntity project) throws BusinessException {

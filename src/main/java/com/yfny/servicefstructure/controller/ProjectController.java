@@ -2,7 +2,9 @@ package com.yfny.servicefstructure.controller;
 
 import com.yfny.servicefstructure.entity.ProjectEntity;
 import com.yfny.servicefstructure.service.ProjectService;
+import com.yfny.utilscommon.basemvc.common.BaseController;
 import com.yfny.utilscommon.basemvc.common.BusinessException;
+import com.yfny.utilscommon.basemvc.producer.BaseService;
 import com.yfny.utilscommon.util.InvokeResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +16,24 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping(value = "/project")
-public class ProjectController {
+public class ProjectController extends BaseController<ProjectEntity> {
 
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping(value = "/insert")
+    @Override
+    public BaseService<ProjectEntity> getBaseService() {
+        return this.projectService;
+    }
+
+    @PostMapping(value = "/insert1")
     @ResponseBody
     public InvokeResult insert(@RequestBody ProjectEntity entity) throws Exception {
-        int result = projectService.insert(entity);
+        int result = projectService.insertSelective(entity);
         return InvokeResult.writeResult(result, "20100", "10003", "10002");
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/update1")
     @ResponseBody
     public InvokeResult update(@RequestBody ProjectEntity entity) throws Exception {
         boolean flag1 = projectService.permission(entity);
@@ -41,11 +48,11 @@ public class ProjectController {
         param.setName(entity.getName());
         ProjectEntity project = projectService.selectOne(param);
         entity.setId(project.getId());
-        int result = projectService.update(entity);
+        int result = projectService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20110", "10003", "10002");
     }
 
-    @PostMapping(value = "/delete")
+    @PostMapping(value = "/delete1")
     @ResponseBody
     public InvokeResult delete(@RequestBody ProjectEntity entity) throws Exception {
         boolean flag1 = projectService.permission(entity);
@@ -67,7 +74,7 @@ public class ProjectController {
         param.setName(entity.getName());
         ProjectEntity project = projectService.selectOne(param);
         entity.setId(project.getId());
-        int result = projectService.update(entity);
+        int result = projectService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20130", "10003", "10002");
     }
 
@@ -78,17 +85,17 @@ public class ProjectController {
         return InvokeResult.readResult(result, "10001", "10003", "20142");
     }
 
-    @PostMapping(value = "/selectOne")
+    @PostMapping(value = "/selectOne1")
     @ResponseBody
     public InvokeResult selectOne(@RequestBody ProjectEntity entity) throws Exception {
         ProjectEntity result = projectService.selectOne(entity);
         return InvokeResult.readResult(result, "20141", "10003", "20142");
     }
 
-    @PostMapping(value = "/findList")
+    @PostMapping(value = "/findList1")
     @ResponseBody
     public InvokeResult findList(@RequestBody ProjectEntity entity) throws Exception {
-        List<ProjectEntity> result = projectService.findList(entity);
+        List<ProjectEntity> result = projectService.findAllList("1", "1");
         return InvokeResult.readResult(result, "20140", "10003", "10002");
     }
 

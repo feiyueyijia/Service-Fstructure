@@ -1,4 +1,4 @@
-package com.yfny.servicefstructure.mapper;
+package com.yfny.servicefstructure.builder;
 
 import com.yfny.servicefstructure.entity.ProjectEntity;
 import org.apache.ibatis.jdbc.SQL;
