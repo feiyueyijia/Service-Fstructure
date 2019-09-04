@@ -30,7 +30,7 @@ public class ProjectController {
     public InvokeResult insert(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validInsert(entity);
         int result = projectService.insert(entity);
-        return InvokeResult.writeResult(result, "20100", "10003", "10002");
+        return InvokeResult.writeResult(result, "20100", "20101");
     }
 
     /**
@@ -44,7 +44,7 @@ public class ProjectController {
     public InvokeResult insertSelective(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validInsert(entity);
         int result = projectService.insertSelective(entity);
-        return InvokeResult.writeResult(result, "20100", "10003", "10002");
+        return InvokeResult.writeResult(result, "20100", "20101");
     }
 
     /**
@@ -62,7 +62,7 @@ public class ProjectController {
         ProjectEntity project = projectService.selectOne(param);
         entity.setId(project.getId());
         int result = projectService.update(entity);
-        return InvokeResult.writeResult(result, "20110", "10003", "10002");
+        return InvokeResult.writeResult(result, "20102", "20003");
     }
 
     /**
@@ -80,7 +80,7 @@ public class ProjectController {
         ProjectEntity project = projectService.selectOne(param);
         entity.setId(project.getId());
         int result = projectService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20110", "10003", "10002");
+        return InvokeResult.writeResult(result, "20102", "20003");
     }
 
     /**
@@ -94,7 +94,7 @@ public class ProjectController {
     public InvokeResult delete(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validDelete(entity);
         int result = projectService.delete(entity);
-        return InvokeResult.writeResult(result, "20120", "10003", "10002");
+        return InvokeResult.writeResult(result, "20104", "20105");
     }
 
     /**
@@ -107,7 +107,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult deleteByPrimaryKey(@RequestParam(value = "key") Object key) throws Exception {
         int result = projectService.deleteByPrimaryKey(key);
-        return InvokeResult.writeResult(result, "20003", "10003", "20004");
+        return InvokeResult.writeResult(result, "20104", "20105");
     }
 
     /**
@@ -121,7 +121,7 @@ public class ProjectController {
     public InvokeResult selectOne(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validSelect(entity);
         ProjectEntity result = projectService.selectOne(entity);
-        return InvokeResult.readResult(result, "20141", "10003", "20142");
+        return InvokeResult.readResult(result, "20110", "20111");
     }
 
     /**
@@ -134,7 +134,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult selectByPrimaryKey(@RequestParam(value = "key") Object key) throws Exception {
         ProjectEntity result = projectService.selectByPrimaryKey(key);
-        return InvokeResult.readResult(result, "10003");
+        return InvokeResult.readResult(result, "20110", "20111");
     }
 
     /**
@@ -167,7 +167,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findList(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findList(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20140", "10003", "10002");
+        return InvokeResult.readResult(result, "20108", "20109");
     }
 
     /**
@@ -181,7 +181,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findAllList(@PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findAllList(pageNum, pageSize);
-        return InvokeResult.readResult(result, "10003");
+        return InvokeResult.readResult(result, "20108", "20109");
     }
 
     /**
@@ -196,7 +196,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findSimpleListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findSimpleListByAndCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "10003");
+        return InvokeResult.readResult(result, "20108", "20109");
     }
 
     /**
@@ -211,7 +211,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findListByAndCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "10003");
+        return InvokeResult.readResult(result, "20108", "20109");
     }
 
     /**
@@ -226,7 +226,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findSimpleListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findSimpleListByORCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "10003");
+        return InvokeResult.readResult(result, "20108", "20109");
     }
 
     /**
@@ -241,7 +241,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findListByORCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "10003");
+        return InvokeResult.readResult(result, "20108", "20109");
     }
 
     @PostMapping(value = "/lock")
@@ -253,14 +253,14 @@ public class ProjectController {
         ProjectEntity project = projectService.selectOne(param);
         entity.setId(project.getId());
         int result = projectService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20130", "10003", "10002");
+        return InvokeResult.writeResult(result, "20106", "20107");
     }
 
     @PostMapping(value = "/permission")
     @ResponseBody
     public InvokeResult permission(@RequestBody ProjectEntity entity) throws Exception {
         boolean result = projectService.permission(entity);
-        return InvokeResult.readResult(result, "10001", "10003", "20142");
+        return InvokeResult.readResult(result, "10001", "10002");
     }
 
 }
