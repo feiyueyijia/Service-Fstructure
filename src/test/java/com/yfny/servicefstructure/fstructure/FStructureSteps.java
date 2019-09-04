@@ -101,7 +101,7 @@ public class FStructureSteps extends APIBaseTest {
         /*--------------------业务组装结束--------------------*/
 
         //指定要请求的接口路径
-        String url = "/project/delete1";
+        String url = "/project/delete";
 
         //模拟页面请求
         JSONObject result = postRequest(url, content);
@@ -131,7 +131,7 @@ public class FStructureSteps extends APIBaseTest {
         /*--------------------业务组装结束--------------------*/
 
         //指定要请求的接口路径
-        String url = "/project/insert1";
+        String url = "/project/insertSelective";
 
         //模拟页面请求
         JSONObject result = postRequest(url, content);
@@ -154,7 +154,7 @@ public class FStructureSteps extends APIBaseTest {
         /*--------------------业务组装结束--------------------*/
 
         //指定要请求的接口路径
-        String url = "/project/update1";
+        String url = "/project/updateSelective";
 
         //模拟页面请求
         JSONObject result = postRequest(url, content);
@@ -182,7 +182,7 @@ public class FStructureSteps extends APIBaseTest {
         /*--------------------业务组装结束--------------------*/
 
         //指定要请求的接口路径
-        String url = "/project/selectOne1";
+        String url = "/project/selectOne";
 
         //模拟页面请求
         JSONObject result = postRequest(url, content);
@@ -203,7 +203,7 @@ public class FStructureSteps extends APIBaseTest {
         /*--------------------业务组装结束--------------------*/
 
         //指定要请求的接口路径
-        String url = "/project/findList1";
+        String url = "/project/findList";
 
         //模拟页面请求
         JSONObject result = postRequest(url, content);
