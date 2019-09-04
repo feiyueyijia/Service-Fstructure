@@ -58,14 +58,14 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult update(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validUpdate(entity);
-        if (StringUtils.isNotBlank(entity.getId())) {
+        if (StringUtils.isBlank(entity.getId())) {
             ProjectEntity param = new ProjectEntity();
             param.setName(entity.getName());
             ProjectEntity project = projectService.selectOne(param);
             entity.setId(project.getId());
         }
         int result = projectService.update(entity);
-        return InvokeResult.writeResult(result, "20102", "20003");
+        return InvokeResult.writeResult(result, "20102", "20103");
     }
 
     /**
@@ -78,14 +78,14 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult updateSelective(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validUpdate(entity);
-        if (StringUtils.isNotBlank(entity.getId())) {
+        if (StringUtils.isBlank(entity.getId())) {
             ProjectEntity param = new ProjectEntity();
             param.setName(entity.getName());
             ProjectEntity project = projectService.selectOne(param);
             entity.setId(project.getId());
         }
         int result = projectService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20102", "20003");
+        return InvokeResult.writeResult(result, "20102", "20103");
     }
 
     /**
@@ -253,7 +253,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult lock(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validLock(entity);
-        if (StringUtils.isNotBlank(entity.getId())) {
+        if (StringUtils.isBlank(entity.getId())) {
             ProjectEntity param = new ProjectEntity();
             param.setName(entity.getName());
             ProjectEntity project = projectService.selectOne(param);
