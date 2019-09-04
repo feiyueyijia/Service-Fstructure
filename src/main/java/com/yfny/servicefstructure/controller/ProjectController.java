@@ -2,13 +2,11 @@ package com.yfny.servicefstructure.controller;
 
 import com.yfny.servicefstructure.entity.ProjectEntity;
 import com.yfny.servicefstructure.service.ProjectService;
-import com.yfny.utilscommon.basemvc.common.BusinessException;
+import com.yfny.servicefstructure.valid.ProjectValid;
 import com.yfny.utilscommon.util.InvokeResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -24,17 +22,13 @@ public class ProjectController {
     /**
      * 保存一个实体，null的属性也会保存，不会使用数据库默认值
      *
-     * @param entity        对象实体
-     * @param bindingResult 验证结果
+     * @param entity 对象实体
      * @return 返回0为失败，返回1为成功
      */
     @PostMapping(value = "/insert")
     @ResponseBody
-    public InvokeResult insert(@Valid @RequestBody ProjectEntity entity, BindingResult bindingResult) throws Exception {
-        if (bindingResult.hasErrors()) { // 如果验证信息错误
-            String message = bindingResult.getFieldError().getDefaultMessage(); // 返回一个错误信息
-            return InvokeResult.failure("10002", message);
-        }
+    public InvokeResult insert(@RequestBody ProjectEntity entity) throws Exception {
+        ProjectValid.validInsert(entity);
         int result = projectService.insert(entity);
         return InvokeResult.writeResult(result, "20100", "10003", "10002");
     }
@@ -42,17 +36,13 @@ public class ProjectController {
     /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
      *
-     * @param entity        对象实体
-     * @param bindingResult 验证结果
+     * @param entity 对象实体
      * @return 返回0为失败，返回1为成功
      */
     @PostMapping(value = "/insertSelective")
     @ResponseBody
-    public InvokeResult insertSelective(@Valid @RequestBody ProjectEntity entity, BindingResult bindingResult) throws Exception {
-//        if (bindingResult.hasErrors()) { // 如果验证信息错误
-//            String message = bindingResult.getFieldError().getDefaultMessage(); // 返回一个错误信息
-//            return InvokeResult.failure("10002", message);
-//        }
+    public InvokeResult insertSelective(@RequestBody ProjectEntity entity) throws Exception {
+        ProjectValid.validInsert(entity);
         int result = projectService.insertSelective(entity);
         return InvokeResult.writeResult(result, "20100", "10003", "10002");
     }
@@ -60,27 +50,13 @@ public class ProjectController {
     /**
      * 根据主键更新实体全部字段，null值会被更新
      *
-     * @param entity        对象实体
-     * @param bindingResult 验证结果
+     * @param entity 对象实体
      * @return 返回0为失败，返回1为成功
      */
     @PostMapping(value = "/update")
     @ResponseBody
-    public InvokeResult update(@Valid @RequestBody ProjectEntity entity, BindingResult bindingResult) throws Exception {
-//        if (bindingResult.hasErrors()) { // 如果验证信息错误
-//            String message = bindingResult.getFieldError().getDefaultMessage(); // 返回一个错误信息
-//            return InvokeResult.failure("10002", message);
-//        }
-//        int result = projectService.update(entity);
-//        return InvokeResult.writeResult(result, "20001", "10003", "20002");
-        boolean flag1 = projectService.permission(entity);
-        boolean flag2 = projectService.isLocked(entity);
-        if (!flag1) {
-            throw new BusinessException("20111");
-        }
-        if (flag2) {
-            throw new BusinessException("20112");
-        }
+    public InvokeResult update(@RequestBody ProjectEntity entity) throws Exception {
+        ProjectValid.validUpdate(entity);
         ProjectEntity param = new ProjectEntity();
         param.setName(entity.getName());
         ProjectEntity project = projectService.selectOne(param);
@@ -97,21 +73,8 @@ public class ProjectController {
      */
     @PostMapping(value = "/updateSelective")
     @ResponseBody
-    public InvokeResult updateSelective(@Valid @RequestBody ProjectEntity entity, BindingResult bindingResult) throws Exception {
-//        if (bindingResult.hasErrors()) { // 如果验证信息错误
-//            String message = bindingResult.getFieldError().getDefaultMessage(); // 返回一个错误信息
-//            return InvokeResult.failure("10002", message);
-//        }
-//        int result = projectService.updateSelective(entity);
-//        return InvokeResult.writeResult(result, "20001", "10003", "20002");
-        boolean flag1 = projectService.permission(entity);
-        boolean flag2 = projectService.isLocked(entity);
-        if (!flag1) {
-            throw new BusinessException("20111");
-        }
-        if (flag2) {
-            throw new BusinessException("20112");
-        }
+    public InvokeResult updateSelective(@RequestBody ProjectEntity entity) throws Exception {
+        ProjectValid.validUpdate(entity);
         ProjectEntity param = new ProjectEntity();
         param.setName(entity.getName());
         ProjectEntity project = projectService.selectOne(param);
@@ -129,12 +92,7 @@ public class ProjectController {
     @PostMapping(value = "/delete")
     @ResponseBody
     public InvokeResult delete(@RequestBody ProjectEntity entity) throws Exception {
-//        int result = projectService.delete(entity);
-//        return InvokeResult.writeResult(result, "20003", "10003", "20004");
-        boolean flag1 = projectService.permission(entity);
-        if (!flag1) {
-            throw new BusinessException("20121");
-        }
+        ProjectValid.validDelete(entity);
         int result = projectService.delete(entity);
         return InvokeResult.writeResult(result, "20120", "10003", "10002");
     }
@@ -161,6 +119,7 @@ public class ProjectController {
     @PostMapping(value = "/selectOne")
     @ResponseBody
     public InvokeResult selectOne(@RequestBody ProjectEntity entity) throws Exception {
+        ProjectValid.validSelect(entity);
         ProjectEntity result = projectService.selectOne(entity);
         return InvokeResult.readResult(result, "20141", "10003", "20142");
     }
@@ -288,10 +247,7 @@ public class ProjectController {
     @PostMapping(value = "/lock")
     @ResponseBody
     public InvokeResult lock(@RequestBody ProjectEntity entity) throws Exception {
-        boolean flag = projectService.permission(entity);
-        if (!flag) {
-            throw new BusinessException("20131");
-        }
+        ProjectValid.validLock(entity);
         ProjectEntity param = new ProjectEntity();
         param.setName(entity.getName());
         ProjectEntity project = projectService.selectOne(param);
@@ -306,4 +262,5 @@ public class ProjectController {
         boolean result = projectService.permission(entity);
         return InvokeResult.readResult(result, "10001", "10003", "20142");
     }
+
 }

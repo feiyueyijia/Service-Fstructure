@@ -6,10 +6,8 @@ import com.yfny.servicefstructure.service.ProjectService;
 import com.yfny.utilscommon.basemvc.common.BusinessException;
 import com.yfny.utilscommon.basemvc.producer.BaseMapper;
 import com.yfny.utilscommon.basemvc.producer.BaseServiceImpl;
-import com.yfny.utilscommon.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 功能结构管理项目对象ServiceImpl
@@ -25,19 +23,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectEntity> implement
     @Override
     public BaseMapper<ProjectEntity> getBaseMapper() {
         return this.projectMapper;
-    }
-
-    @Override
-    @Transactional
-    public int insertSelective(ProjectEntity entity) throws BusinessException {
-        this.validateProject(entity);
-        return super.insertSelective(entity);
-    }
-
-    @Override
-    public ProjectEntity selectOne(ProjectEntity entity) throws BusinessException {
-        this.validateProject1(entity);
-        return super.selectOne(entity);
     }
 
     public boolean permission(ProjectEntity project) throws BusinessException {
@@ -57,38 +42,4 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectEntity> implement
         return false;
     }
 
-    private void validateProject(ProjectEntity project) throws BusinessException {
-        this.validateProjectNameEmpty(project);
-        this.validateProjectNameDuplicate(project);
-        this.validateProjectNameLegal(project);
-    }
-
-    private void validateProjectNameDuplicate(ProjectEntity project) throws BusinessException {
-        ProjectEntity param = new ProjectEntity();
-        param.setName(project.getName());
-        int p = projectMapper.selectCount(param);
-        if (p > 0) {
-            throw new BusinessException("20101");
-        }
-    }
-
-    private void validateProjectNameEmpty(ProjectEntity project) throws BusinessException {
-        if (StringUtils.isEmpty(project.getName())) {
-            throw new BusinessException("20102");
-        }
-    }
-
-    private void validateProjectNameLegal(ProjectEntity project) throws BusinessException {
-        if (project.getName().contains("$%^&*~!")) {
-            throw new BusinessException("20103");
-        }
-    }
-
-    private void validateProject1(ProjectEntity project) throws BusinessException {
-        if (StringUtils.isEmpty(project.getName())) {
-            throw new BusinessException("20142");
-        } else if (project.getName().contains("$%^&*~!")) {
-            throw new BusinessException("20142");
-        }
-    }
 }

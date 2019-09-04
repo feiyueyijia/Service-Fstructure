@@ -5,8 +5,10 @@ import com.yfny.utilscommon.basemvc.common.BusinessException;
 import com.yfny.utilscommon.basemvc.producer.BaseService;
 
 /**
- * Created by jisongZhou on 2019/8/6.
- **/
+ * 功能结构管理项目对象Service
+ * Author auto
+ * Date  2019-08-21
+ */
 public interface ProjectService extends BaseService<ProjectEntity> {
 
     boolean permission(ProjectEntity project) throws BusinessException;
