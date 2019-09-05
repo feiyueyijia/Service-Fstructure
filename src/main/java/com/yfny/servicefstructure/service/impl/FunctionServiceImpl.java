@@ -1,8 +1,8 @@
 package com.yfny.servicefstructure.service.impl;
 
-import com.yfny.servicefstructure.entity.ProjectEntity;
-import com.yfny.servicefstructure.mapper.ProjectMapper;
-import com.yfny.servicefstructure.service.ProjectService;
+import com.yfny.servicefstructure.entity.FunctionEntity;
+import com.yfny.servicefstructure.mapper.FunctionMapper;
+import com.yfny.servicefstructure.service.FunctionService;
 import com.yfny.utilscommon.basemvc.common.BusinessException;
 import com.yfny.utilscommon.basemvc.producer.BaseMapper;
 import com.yfny.utilscommon.basemvc.producer.BaseServiceImpl;
@@ -10,29 +10,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 功能结构管理项目对象ServiceImpl
+ * 功能结构管理功能对象ServiceImpl
  * Author auto
- * Date  2019-08-21
+ * Date  2019-09-05
  */
 @Service
-public class ProjectServiceImpl extends BaseServiceImpl<ProjectEntity> implements ProjectService {
+public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> implements FunctionService {
 
     @Autowired
-    private ProjectMapper projectMapper;
+    private FunctionMapper functionMapper;
 
     @Override
-    public BaseMapper<ProjectEntity> getBaseMapper() {
-        return this.projectMapper;
+    public BaseMapper<FunctionEntity> getBaseMapper() {
+        return this.functionMapper;
     }
 
-    public boolean permission(ProjectEntity entity) throws BusinessException {
+    public boolean permission(FunctionEntity entity) throws BusinessException {
         if (!"管理员".equals(entity.getUserName())) {
             return false;
         }
         return true;
     }
 
-    public boolean isLocked(ProjectEntity entity) throws BusinessException {
+    public boolean isLocked(FunctionEntity entity) throws BusinessException {
 //        if ("UNLOCKED".equals(entity.getLock())) {
 //            return false;
 //        }

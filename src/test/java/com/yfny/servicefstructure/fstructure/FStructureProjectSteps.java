@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * Created by jisongZhou on 2019/8/6.
  **/
-public class FStructureSteps extends APIBaseTest {
+public class FStructureProjectSteps extends APIBaseTest {
 
     boolean menuPermission = false; //菜单权限
     boolean projectPermission = false;  //项目权限
@@ -36,7 +36,7 @@ public class FStructureSteps extends APIBaseTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
-    @Given("^登录用户拥有菜单权限$")
+    @Given("^项目--登录用户拥有菜单权限$")
     public void menuPermission() {
 //        if (userName.equals("admin")) {
 //            menuPermission = true;
@@ -44,37 +44,37 @@ public class FStructureSteps extends APIBaseTest {
 //        Assert.assertEquals(menuPermission, true);
     }
 
-    @Given("^用户 \"([^\"]*)\" 拥有项目权限$")
+    @Given("^项目--用户 \"([^\"]*)\" 拥有项目权限$")
     public void projectPermission(String userName) {
         project = new ProjectEntity();
         project.setUserName(userName);
     }
 
-    @Given("^动作执行成功$")
+    @Given("^项目--动作执行成功$")
     public void success() throws Exception {
         //Assert.assertEquals(createResult, true);
     }
 
-    @When("^点击新建项目按钮$")
+    @When("^项目--点击新建项目按钮$")
     public void createProject() throws Exception {
 
     }
 
-    @When("^选择 \"([^\"]*)\" 点击锁定项目按钮$")
-    public void lockProject(String projectName) throws Exception {
+    @When("^项目--选择 \"([^\"]*)\" 点击锁定项目按钮$")
+    public void lockProject(String name) throws Exception {
 
         /*--------------------开始业务组装--------------------*/
 
         Map<String, String> paramsMap = new HashMap<>();
 
-        project.setName(projectName);
+        project.setName(name);
         project.setLockin("已锁定");
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject != null) {
-                String name = jsonObject.getString("name");
-                if (projectName.equals(name)) {
+                String projectName = jsonObject.getString("name");
+                if (name.equals(projectName)) {
                     String id = jsonObject.getString("id");
                     project.setId(id);
                 }
@@ -94,14 +94,14 @@ public class FStructureSteps extends APIBaseTest {
         lockResultMessage = result.getString("message");
     }
 
-    @When("^选择 \"([^\"]*)\" 点击修改项目按钮$")
-    public void updateProject(String projectName) throws Exception {
-        project.setName(projectName);
+    @When("^项目--选择 \"([^\"]*)\" 点击修改项目按钮$")
+    public void updateProject(String name) throws Exception {
+        project.setName(name);
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject != null) {
-                String name = jsonObject.getString("name");
-                if (projectName.equals(name)) {
+                String projectName = jsonObject.getString("name");
+                if (name.equals(projectName)) {
                     String id = jsonObject.getString("id");
                     project.setId(id);
                 }
@@ -109,14 +109,14 @@ public class FStructureSteps extends APIBaseTest {
         }
     }
 
-    @When("^选择 \"([^\"]*)\" 点击删除项目按钮$")
-    public void deleteProject(String projectName) throws Exception {
+    @When("^项目--选择 \"([^\"]*)\" 点击删除项目按钮$")
+    public void deleteProject(String name) throws Exception {
 
         /*--------------------开始业务组装--------------------*/
 
         Map<String, String> paramsMap = new HashMap<>();
 
-        project.setName(projectName);
+        project.setName(name);
 
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(project);
@@ -131,8 +131,8 @@ public class FStructureSteps extends APIBaseTest {
         deleteResultMessage = result.getString("message");
     }
 
-    @And("^输入 \"([^\"]*)\" 和 \"([^\"]*)\"$")
-    public void insertProjectInfo(String projectName, String projectDescription) throws Exception {
+    @And("^项目--输入 \"([^\"]*)\" 和 \"([^\"]*)\"$")
+    public void insertProjectInfo(String name, String description) throws Exception {
 
         /*--------------------开始业务组装--------------------*/
 
@@ -140,8 +140,8 @@ public class FStructureSteps extends APIBaseTest {
 
         project = new ProjectEntity();
         project.setId(uuid());
-        project.setName(projectName);
-        project.setDescription(projectDescription);
+        project.setName(name);
+        project.setDescription(description);
         project.setProgressBar("0%");
         project.setProgress("未开始");
         project.setLockin("未锁定");
@@ -161,15 +161,15 @@ public class FStructureSteps extends APIBaseTest {
         createResultMessage = result.getString("message");
     }
 
-    @And("^修改 \"([^\"]*)\" 和 \"([^\"]*)\"$")
-    public void updateProjectInfo(String projectDescription, String ProjectStatus) throws Exception {
+    @And("^项目--修改 \"([^\"]*)\" 和 \"([^\"]*)\"$")
+    public void updateProjectInfo(String description, String progress) throws Exception {
 
         /*--------------------开始业务组装--------------------*/
 
         Map<String, String> paramsMap = new HashMap<>();
 
-        project.setDescription(projectDescription);
-        project.setProgress(ProjectStatus);
+        project.setDescription(description);
+        project.setProgress(progress);
 
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(project);
@@ -184,26 +184,26 @@ public class FStructureSteps extends APIBaseTest {
         updateResultMessage = result.getString("message");
     }
 
-    @And("^点击确定按钮$")
+    @And("^项目--点击确定按钮$")
     public void confirm() {
 
     }
 
-    @And("^查看项目 \"([^\"]*)\"$")
-    public void findProject(String projectName) throws Exception {
+    @And("^项目--查看项目 \"([^\"]*)\"$")
+    public void findProject(String name) throws Exception {
 
         /*--------------------开始业务组装--------------------*/
 
         Map<String, String> paramsMap = new HashMap<>();
 
         ProjectEntity project = new ProjectEntity();
-        project.setName(projectName);
+        project.setName(name);
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject != null) {
-                String name = jsonObject.getString("name");
-                if (projectName.equals(name)) {
+                String projectName = jsonObject.getString("name");
+                if (name.equals(projectName)) {
                     String id = jsonObject.getString("id");
                     project.setId(id);
                 }
@@ -223,7 +223,7 @@ public class FStructureSteps extends APIBaseTest {
         queryResultMessage = result.getString("message");
     }
 
-    @And("^打开功能结构管理菜单$")
+    @And("^项目--打开功能结构管理菜单$")
     public void openFStructure() throws Exception {
         /*--------------------开始业务组装--------------------*/
 
@@ -245,32 +245,32 @@ public class FStructureSteps extends APIBaseTest {
         jsonArray = result.getJSONArray("data");
     }
 
-    @Then("^返回新建项目执行结果 \"([^\"]*)\"$")
+    @Then("^项目--返回新建项目执行结果 \"([^\"]*)\"$")
     public void verifyCreateProjectResult(String result) {
         Assert.assertEquals(createResultMessage, result);
     }
 
-    @Then("^返回查看项目执行结果 \"([^\"]*)\"$")
+    @Then("^项目--返回查看项目执行结果 \"([^\"]*)\"$")
     public void verifyQueryProjectResult(String result) {
         Assert.assertEquals(queryResultMessage, result);
     }
 
-    @Then("^返回锁定项目执行结果 \"([^\"]*)\"$")
+    @Then("^项目--返回锁定项目执行结果 \"([^\"]*)\"$")
     public void verifyLockProjectResult(String result) {
         Assert.assertEquals(lockResultMessage, result);
     }
 
-    @Then("^返回修改项目执行结果 \"([^\"]*)\"$")
+    @Then("^项目--返回修改项目执行结果 \"([^\"]*)\"$")
     public void verifyUpdateProjectResult(String result) {
         Assert.assertEquals(updateResultMessage, result);
     }
 
-    @Then("^返回删除项目执行结果 \"([^\"]*)\"$")
+    @Then("^项目--返回删除项目执行结果 \"([^\"]*)\"$")
     public void verifyDeleteProjectResult(String result) {
         Assert.assertEquals(deleteResultMessage, result);
     }
 
-    @Then("^返回获取项目列表执行结果:$")
+    @Then("^项目--返回获取项目列表执行结果:$")
     public void loadProjectListResult(List<String> result) {
         Assert.assertEquals(loadListResultMessage, result.get(0));
     }

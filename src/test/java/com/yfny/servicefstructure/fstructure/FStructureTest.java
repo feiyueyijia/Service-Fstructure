@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(tags = "@FStructureTest",
-        glue = {"com.yfny"},
+        glue = {"com.yfny.servicefstructure"},
         plugin = {"json:target/cucumber/cucumber.json", "html:target/cucumber", "pretty"},
         features = "src/test/resources/feature/")
 public class FStructureTest extends APIBaseTest {

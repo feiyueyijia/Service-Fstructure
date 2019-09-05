@@ -1,8 +1,8 @@
 package com.yfny.servicefstructure.controller;
 
-import com.yfny.servicefstructure.entity.ProjectEntity;
-import com.yfny.servicefstructure.service.ProjectService;
-import com.yfny.servicefstructure.valid.ProjectValid;
+import com.yfny.servicefstructure.entity.FunctionEntity;
+import com.yfny.servicefstructure.service.FunctionService;
+import com.yfny.servicefstructure.valid.FunctionValid;
 import com.yfny.utilscommon.util.InvokeResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 功能结构管理项目对象Controller
+ * 功能结构管理功能对象Controller
  * Author auto
  * Date  2019-09-05
  */
 @RestController
-@RequestMapping(value = "/project")
-public class ProjectController {
+@RequestMapping(value = "/function")
+public class FunctionController {
 
     @Autowired
-    private ProjectService projectService;
+    private FunctionService functionService;
 
     /**
      * 保存一个实体，null的属性也会保存，不会使用数据库默认值
@@ -29,10 +29,10 @@ public class ProjectController {
      */
     @PostMapping(value = "/insert")
     @ResponseBody
-    public InvokeResult insert(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validInsert(entity);
-        int result = projectService.insert(entity);
-        return InvokeResult.writeResult(result, "20100", "20101");
+    public InvokeResult insert(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionValid.validInsert(entity);
+        int result = functionService.insert(entity);
+        return InvokeResult.writeResult(result, "20200", "20201");
     }
 
     /**
@@ -43,10 +43,10 @@ public class ProjectController {
      */
     @PostMapping(value = "/insertSelective")
     @ResponseBody
-    public InvokeResult insertSelective(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validInsert(entity);
-        int result = projectService.insertSelective(entity);
-        return InvokeResult.writeResult(result, "20100", "20101");
+    public InvokeResult insertSelective(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionValid.validInsert(entity);
+        int result = functionService.insertSelective(entity);
+        return InvokeResult.writeResult(result, "20200", "20201");
     }
 
     /**
@@ -57,10 +57,10 @@ public class ProjectController {
      */
     @PostMapping(value = "/update")
     @ResponseBody
-    public InvokeResult update(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validUpdate(entity);
-        int result = projectService.update(entity);
-        return InvokeResult.writeResult(result, "20102", "20103");
+    public InvokeResult update(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionValid.validUpdate(entity);
+        int result = functionService.update(entity);
+        return InvokeResult.writeResult(result, "20202", "20203");
     }
 
     /**
@@ -71,10 +71,10 @@ public class ProjectController {
      */
     @PostMapping(value = "/updateSelective")
     @ResponseBody
-    public InvokeResult updateSelective(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validUpdate(entity);
-        int result = projectService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20102", "20103");
+    public InvokeResult updateSelective(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionValid.validUpdate(entity);
+        int result = functionService.updateSelective(entity);
+        return InvokeResult.writeResult(result, "20202", "20203");
     }
 
     /**
@@ -85,10 +85,10 @@ public class ProjectController {
      */
     @PostMapping(value = "/delete")
     @ResponseBody
-    public InvokeResult delete(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validDelete(entity);
-        int result = projectService.delete(entity);
-        return InvokeResult.writeResult(result, "20104", "20105");
+    public InvokeResult delete(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionValid.validDelete(entity);
+        int result = functionService.delete(entity);
+        return InvokeResult.writeResult(result, "20204", "20205");
     }
 
     /**
@@ -100,8 +100,8 @@ public class ProjectController {
     @PostMapping(value = "/deleteByPrimaryKey")
     @ResponseBody
     public InvokeResult deleteByPrimaryKey(@RequestParam(value = "key") Object key) throws Exception {
-        int result = projectService.deleteByPrimaryKey(key);
-        return InvokeResult.writeResult(result, "20104", "20105");
+        int result = functionService.deleteByPrimaryKey(key);
+        return InvokeResult.writeResult(result, "20204", "20205");
     }
 
     /**
@@ -112,10 +112,10 @@ public class ProjectController {
      */
     @PostMapping(value = "/selectOne")
     @ResponseBody
-    public InvokeResult selectOne(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validSelect(entity);
-        ProjectEntity result = projectService.selectOne(entity);
-        return InvokeResult.readResult(result, "20110", "20111");
+    public InvokeResult selectOne(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionValid.validSelect(entity);
+        FunctionEntity result = functionService.selectOne(entity);
+        return InvokeResult.readResult(result, "20210", "20211");
     }
 
     /**
@@ -127,8 +127,8 @@ public class ProjectController {
     @GetMapping(value = "/selectByPrimaryKey")
     @ResponseBody
     public InvokeResult selectByPrimaryKey(@RequestParam(value = "key") Object key) throws Exception {
-        ProjectEntity result = projectService.selectByPrimaryKey(key);
-        return InvokeResult.readResult(result, "20110", "20111");
+        FunctionEntity result = functionService.selectByPrimaryKey(key);
+        return InvokeResult.readResult(result, "20210", "20211");
     }
 
     /**
@@ -139,8 +139,8 @@ public class ProjectController {
      */
     @PostMapping(value = "/selectCount")
     @ResponseBody
-    public InvokeResult selectCount(@RequestBody ProjectEntity entity) throws Exception {
-        int result = projectService.selectCount(entity);
+    public InvokeResult selectCount(@RequestBody FunctionEntity entity) throws Exception {
+        int result = functionService.selectCount(entity);
         if (result >= 0) {
             return InvokeResult.success(result);
         } else if (result == -1) {
@@ -159,9 +159,9 @@ public class ProjectController {
      */
     @PostMapping(value = {"/findList", "/findList/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findList(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findList(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+    public InvokeResult findList(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<FunctionEntity> result = functionService.findList(entity, pageNum, pageSize);
+        return InvokeResult.readResult(result, "20208", "20209");
     }
 
     /**
@@ -174,8 +174,8 @@ public class ProjectController {
     @GetMapping(value = {"/findAllList", "/findAllList/{pageNum}/{pageSize}"})
     @ResponseBody
     public InvokeResult findAllList(@PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findAllList(pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+        List<FunctionEntity> result = functionService.findAllList(pageNum, pageSize);
+        return InvokeResult.readResult(result, "20208", "20209");
     }
 
     /**
@@ -188,9 +188,9 @@ public class ProjectController {
      */
     @PostMapping(value = {"/findSimpleListByAndCondition", "/findSimpleListByAndCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findSimpleListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findSimpleListByAndCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+    public InvokeResult findSimpleListByAndCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<FunctionEntity> result = functionService.findSimpleListByAndCondition(entity, pageNum, pageSize);
+        return InvokeResult.readResult(result, "20208", "20209");
     }
 
     /**
@@ -203,9 +203,9 @@ public class ProjectController {
      */
     @PostMapping(value = {"/findListByAndCondition", "/findListByAndCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findListByAndCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+    public InvokeResult findListByAndCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<FunctionEntity> result = functionService.findListByAndCondition(entity, pageNum, pageSize);
+        return InvokeResult.readResult(result, "20208", "20209");
     }
 
     /**
@@ -218,9 +218,9 @@ public class ProjectController {
      */
     @PostMapping(value = {"/findSimpleListByORCondition", "/findSimpleListByORCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findSimpleListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findSimpleListByORCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+    public InvokeResult findSimpleListByORCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<FunctionEntity> result = functionService.findSimpleListByORCondition(entity, pageNum, pageSize);
+        return InvokeResult.readResult(result, "20208", "20209");
     }
 
     /**
@@ -233,23 +233,23 @@ public class ProjectController {
      */
     @PostMapping(value = {"/findListByORCondition", "/findListByORCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findListByORCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+    public InvokeResult findListByORCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<FunctionEntity> result = functionService.findListByORCondition(entity, pageNum, pageSize);
+        return InvokeResult.readResult(result, "20208", "20209");
     }
 
     @PostMapping(value = "/lock")
     @ResponseBody
-    public InvokeResult lock(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validLock(entity);
-        int result = projectService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20106", "20107");
+    public InvokeResult lock(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionValid.validLock(entity);
+        int result = functionService.updateSelective(entity);
+        return InvokeResult.writeResult(result, "20206", "20207");
     }
 
     @PostMapping(value = "/permission")
     @ResponseBody
-    public InvokeResult permission(@RequestBody ProjectEntity entity) throws Exception {
-        boolean result = projectService.permission(entity);
+    public InvokeResult permission(@RequestBody FunctionEntity entity) throws Exception {
+        boolean result = functionService.permission(entity);
         return InvokeResult.readResult(result, "10001", "10002");
     }
 
