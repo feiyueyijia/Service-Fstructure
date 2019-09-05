@@ -1,5 +1,6 @@
 package com.yfny.servicefstructure.fstructure;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.yfny.servicefstructure.base.APIBaseTest;
 import com.yfny.servicefstructure.entity.ProjectEntity;
@@ -26,6 +27,7 @@ public class FStructureSteps extends APIBaseTest {
     String queryResultMessage = "";   //查看结果
     String loadListResultMessage = "";  //加载列表结果
     String deleteResultMessage = "";    //删除结果
+    JSONArray jsonArray = new JSONArray();//列表数据
     ProjectEntity project = new ProjectEntity();
 
 
@@ -68,6 +70,17 @@ public class FStructureSteps extends APIBaseTest {
         project.setName(projectName);
         project.setLockin("已锁定");
 
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject != null) {
+                String name = jsonObject.getString("name");
+                if (projectName.equals(name)) {
+                    String id = jsonObject.getString("id");
+                    project.setId(id);
+                }
+            }
+        }
+
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(project);
 
@@ -84,6 +97,16 @@ public class FStructureSteps extends APIBaseTest {
     @When("^选择 \"([^\"]*)\" 点击修改项目按钮$")
     public void updateProject(String projectName) throws Exception {
         project.setName(projectName);
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject != null) {
+                String name = jsonObject.getString("name");
+                if (projectName.equals(name)) {
+                    String id = jsonObject.getString("id");
+                    project.setId(id);
+                }
+            }
+        }
     }
 
     @When("^选择 \"([^\"]*)\" 点击删除项目按钮$")
@@ -176,6 +199,17 @@ public class FStructureSteps extends APIBaseTest {
         ProjectEntity project = new ProjectEntity();
         project.setName(projectName);
 
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject != null) {
+                String name = jsonObject.getString("name");
+                if (projectName.equals(name)) {
+                    String id = jsonObject.getString("id");
+                    project.setId(id);
+                }
+            }
+        }
+
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(project);
 
@@ -208,6 +242,7 @@ public class FStructureSteps extends APIBaseTest {
         //模拟页面请求
         JSONObject result = postRequest(url, content);
         loadListResultMessage = result.getString("message");
+        jsonArray = result.getJSONArray("data");
     }
 
     @Then("^返回新建项目执行结果 \"([^\"]*)\"$")

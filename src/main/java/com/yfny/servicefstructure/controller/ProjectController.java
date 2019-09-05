@@ -4,7 +4,6 @@ import com.yfny.servicefstructure.entity.ProjectEntity;
 import com.yfny.servicefstructure.service.ProjectService;
 import com.yfny.servicefstructure.valid.ProjectValid;
 import com.yfny.utilscommon.util.InvokeResult;
-import com.yfny.utilscommon.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,12 +57,6 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult update(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validUpdate(entity);
-        if (StringUtils.isBlank(entity.getId())) {
-            ProjectEntity param = new ProjectEntity();
-            param.setName(entity.getName());
-            ProjectEntity project = projectService.selectOne(param);
-            entity.setId(project.getId());
-        }
         int result = projectService.update(entity);
         return InvokeResult.writeResult(result, "20102", "20103");
     }
@@ -78,12 +71,6 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult updateSelective(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validUpdate(entity);
-        if (StringUtils.isBlank(entity.getId())) {
-            ProjectEntity param = new ProjectEntity();
-            param.setName(entity.getName());
-            ProjectEntity project = projectService.selectOne(param);
-            entity.setId(project.getId());
-        }
         int result = projectService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20102", "20103");
     }
@@ -253,12 +240,6 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult lock(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validLock(entity);
-        if (StringUtils.isBlank(entity.getId())) {
-            ProjectEntity param = new ProjectEntity();
-            param.setName(entity.getName());
-            ProjectEntity project = projectService.selectOne(param);
-            entity.setId(project.getId());
-        }
         int result = projectService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20106", "20107");
     }
