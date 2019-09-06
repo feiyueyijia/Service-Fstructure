@@ -6,8 +6,14 @@ import com.yfny.servicefstructure.service.FunctionService;
 import com.yfny.utilscommon.basemvc.common.BusinessException;
 import com.yfny.utilscommon.basemvc.producer.BaseMapper;
 import com.yfny.utilscommon.basemvc.producer.BaseServiceImpl;
+import com.yfny.utilscommon.util.MultipleTreeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 功能结构管理功能对象ServiceImpl
@@ -23,6 +29,21 @@ public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> impleme
     @Override
     public BaseMapper<FunctionEntity> getBaseMapper() {
         return this.functionMapper;
+    }
+
+    public String getTreeOf(FunctionEntity entity) throws BusinessException {
+        List<FunctionEntity> list = findList(entity, null, null);
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (FunctionEntity function : list) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", function.getId());
+            map.put("name", function.getName());
+            map.put("parentId", function.getParentId());
+            map.put("level", function.getLevel());
+            mapList.add(map);
+        }
+        String treeList = MultipleTreeUtils.getTreeList(list);
+        return treeList;
     }
 
     public boolean permission(FunctionEntity entity) throws BusinessException {

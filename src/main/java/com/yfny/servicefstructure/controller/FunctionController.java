@@ -7,6 +7,7 @@ import com.yfny.utilscommon.util.InvokeResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -237,6 +238,19 @@ public class FunctionController {
 //        List<FunctionEntity> result = functionService.findListByORCondition(entity, pageNum, pageSize);
 //        return InvokeResult.readResult(result, "20208", "20209");
 //    }
+
+    /**
+     * 查询功能树结构
+     *
+     * @param entity 对象实体
+     * @return 返回单个项目的功能树结构
+     */
+    @PostMapping(value = "/getTreeOfProject")
+    @ResponseBody
+    public InvokeResult findSimpleListByORCondition(@RequestBody FunctionEntity entity) throws Exception {
+        List<FunctionEntity> result = new ArrayList<>();
+        return InvokeResult.readResult(result, "20208", "20209");
+    }
 
     @PostMapping(value = "/lock")
     @ResponseBody

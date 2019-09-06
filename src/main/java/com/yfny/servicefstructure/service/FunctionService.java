@@ -11,8 +11,10 @@ import com.yfny.utilscommon.basemvc.producer.BaseService;
  */
 public interface FunctionService extends BaseService<FunctionEntity> {
 
-    boolean permission(FunctionEntity project) throws BusinessException;
+    String getTreeOf(FunctionEntity entity) throws BusinessException;
 
-    boolean isLocked(FunctionEntity project) throws BusinessException;
+    boolean permission(FunctionEntity entity) throws BusinessException;
+
+    boolean isLocked(FunctionEntity entity) throws BusinessException;
 
 }

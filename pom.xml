@@ -59,7 +59,7 @@
         <dependency>
             <groupId>com.yfny</groupId>
             <artifactId>utils-common</artifactId>
-            <version>0.0.1-20190904.054656-13</version>
+            <version>0.0.1-20190906.083448-15</version>
         </dependency>
         <!-- web项目依赖 -->
         <dependency>

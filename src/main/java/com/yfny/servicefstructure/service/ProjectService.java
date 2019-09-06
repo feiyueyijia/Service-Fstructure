@@ -11,8 +11,8 @@ import com.yfny.utilscommon.basemvc.producer.BaseService;
  */
 public interface ProjectService extends BaseService<ProjectEntity> {
 
-    boolean permission(ProjectEntity project) throws BusinessException;
+    boolean permission(ProjectEntity entity) throws BusinessException;
 
-    boolean isLocked(ProjectEntity project) throws BusinessException;
+    boolean isLocked(ProjectEntity entity) throws BusinessException;
 
 }
