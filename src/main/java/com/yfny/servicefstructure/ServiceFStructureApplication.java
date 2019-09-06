@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 @MapperScan("com.yfny.servicefstructure.mapper")
 @ComponentScan(basePackages = {"com.yfny.**.**"})
 public class ServiceFStructureApplication {
