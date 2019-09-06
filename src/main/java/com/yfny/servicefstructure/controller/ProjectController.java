@@ -21,19 +21,19 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    /**
-     * 保存一个实体，null的属性也会保存，不会使用数据库默认值
-     *
-     * @param entity 对象实体
-     * @return 返回0为失败，返回1为成功
-     */
-    @PostMapping(value = "/insert")
-    @ResponseBody
-    public InvokeResult insert(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validInsert(entity);
-        int result = projectService.insert(entity);
-        return InvokeResult.writeResult(result, "20100", "20101");
-    }
+//    /**
+//     * 保存一个实体，null的属性也会保存，不会使用数据库默认值
+//     *
+//     * @param entity 对象实体
+//     * @return 返回0为失败，返回1为成功
+//     */
+//    @PostMapping(value = "/insert")
+//    @ResponseBody
+//    public InvokeResult insert(@RequestBody ProjectEntity entity) throws Exception {
+//        ProjectValid.validInsert(entity);
+//        int result = projectService.insert(entity);
+//        return InvokeResult.writeResult(result, "20100", "20101");
+//    }
 
     /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
@@ -49,19 +49,19 @@ public class ProjectController {
         return InvokeResult.writeResult(result, "20100", "20101");
     }
 
-    /**
-     * 根据主键更新实体全部字段，null值会被更新
-     *
-     * @param entity 对象实体
-     * @return 返回0为失败，返回1为成功
-     */
-    @PostMapping(value = "/update")
-    @ResponseBody
-    public InvokeResult update(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validUpdate(entity);
-        int result = projectService.update(entity);
-        return InvokeResult.writeResult(result, "20102", "20103");
-    }
+//    /**
+//     * 根据主键更新实体全部字段，null值会被更新
+//     *
+//     * @param entity 对象实体
+//     * @return 返回0为失败，返回1为成功
+//     */
+//    @PostMapping(value = "/update")
+//    @ResponseBody
+//    public InvokeResult update(@RequestBody ProjectEntity entity) throws Exception {
+//        ProjectValid.validUpdate(entity);
+//        int result = projectService.update(entity);
+//        return InvokeResult.writeResult(result, "20102", "20103");
+//    }
 
     /**
      * 根据主键更新属性不为null的值
@@ -193,20 +193,20 @@ public class ProjectController {
         return InvokeResult.readResult(result, "20108", "20109");
     }
 
-    /**
-     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
-     *
-     * @param entity   对象实体
-     * @param pageNum  页数
-     * @param pageSize 每页数量
-     * @return 返回对象列表为查询结果
-     */
-    @PostMapping(value = {"/findListByAndCondition", "/findListByAndCondition/{pageNum}/{pageSize}"})
-    @ResponseBody
-    public InvokeResult findListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findListByAndCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
-    }
+//    /**
+//     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
+//     *
+//     * @param entity   对象实体
+//     * @param pageNum  页数
+//     * @param pageSize 每页数量
+//     * @return 返回对象列表为查询结果
+//     */
+//    @PostMapping(value = {"/findListByAndCondition", "/findListByAndCondition/{pageNum}/{pageSize}"})
+//    @ResponseBody
+//    public InvokeResult findListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+//        List<ProjectEntity> result = projectService.findListByAndCondition(entity, pageNum, pageSize);
+//        return InvokeResult.readResult(result, "20108", "20109");
+//    }
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -223,20 +223,20 @@ public class ProjectController {
         return InvokeResult.readResult(result, "20108", "20109");
     }
 
-    /**
-     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
-     *
-     * @param entity   对象实体
-     * @param pageNum  页数
-     * @param pageSize 每页数量
-     * @return 返回对象列表为查询结果
-     */
-    @PostMapping(value = {"/findListByORCondition", "/findListByORCondition/{pageNum}/{pageSize}"})
-    @ResponseBody
-    public InvokeResult findListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findListByORCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
-    }
+//    /**
+//     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
+//     *
+//     * @param entity   对象实体
+//     * @param pageNum  页数
+//     * @param pageSize 每页数量
+//     * @return 返回对象列表为查询结果
+//     */
+//    @PostMapping(value = {"/findListByORCondition", "/findListByORCondition/{pageNum}/{pageSize}"})
+//    @ResponseBody
+//    public InvokeResult findListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+//        List<ProjectEntity> result = projectService.findListByORCondition(entity, pageNum, pageSize);
+//        return InvokeResult.readResult(result, "20108", "20109");
+//    }
 
     @PostMapping(value = "/lock")
     @ResponseBody
