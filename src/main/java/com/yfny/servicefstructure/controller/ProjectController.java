@@ -1,5 +1,6 @@
 package com.yfny.servicefstructure.controller;
 
+import com.yfny.servicefstructure.constant.ProjectConstant;
 import com.yfny.servicefstructure.entity.ProjectEntity;
 import com.yfny.servicefstructure.service.ProjectService;
 import com.yfny.servicefstructure.valid.ProjectValid;
@@ -115,7 +116,7 @@ public class ProjectController {
     public InvokeResult selectOne(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validSelect(entity);
         ProjectEntity result = projectService.selectOne(entity);
-        return InvokeResult.readResult(result, "20110", "20111");
+        return InvokeResult.readResult(result, "20108", "20109");
     }
 
     /**
@@ -128,7 +129,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult selectByPrimaryKey(@RequestParam(value = "key") Object key) throws Exception {
         ProjectEntity result = projectService.selectByPrimaryKey(key);
-        return InvokeResult.readResult(result, "20110", "20111");
+        return InvokeResult.readResult(result, "20108", "20109");
     }
 
     /**
@@ -161,7 +162,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findList(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findList(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+        return InvokeResult.readResult(result, "20106", "20107");
     }
 
     /**
@@ -175,7 +176,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findAllList(@PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findAllList(pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+        return InvokeResult.readResult(result, "20106", "20107");
     }
 
     /**
@@ -190,7 +191,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findSimpleListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findSimpleListByAndCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+        return InvokeResult.readResult(result, "20106", "20107");
     }
 
 //    /**
@@ -205,7 +206,7 @@ public class ProjectController {
 //    @ResponseBody
 //    public InvokeResult findListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
 //        List<ProjectEntity> result = projectService.findListByAndCondition(entity, pageNum, pageSize);
-//        return InvokeResult.readResult(result, "20108", "20109");
+//        return InvokeResult.readResult(result, "20106", "20107");
 //    }
 
     /**
@@ -220,7 +221,7 @@ public class ProjectController {
     @ResponseBody
     public InvokeResult findSimpleListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<ProjectEntity> result = projectService.findSimpleListByORCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20108", "20109");
+        return InvokeResult.readResult(result, "20106", "20107");
     }
 
 //    /**
@@ -235,15 +236,25 @@ public class ProjectController {
 //    @ResponseBody
 //    public InvokeResult findListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
 //        List<ProjectEntity> result = projectService.findListByORCondition(entity, pageNum, pageSize);
-//        return InvokeResult.readResult(result, "20108", "20109");
+//        return InvokeResult.readResult(result, "20106", "20107");
 //    }
 
     @PostMapping(value = "/lock")
     @ResponseBody
     public InvokeResult lock(@RequestBody ProjectEntity entity) throws Exception {
         ProjectValid.validLock(entity);
+        entity.setLockin(ProjectConstant.LOCKED);
         int result = projectService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20106", "20107");
+        return InvokeResult.writeResult(result, "20110", "20111");
+    }
+
+    @PostMapping(value = "/unLock")
+    @ResponseBody
+    public InvokeResult unLock(@RequestBody ProjectEntity entity) throws Exception {
+        ProjectValid.validLock(entity);
+        entity.setLockin(ProjectConstant.UNLOCK);
+        int result = projectService.updateSelective(entity);
+        return InvokeResult.writeResult(result, "20112", "20113");
     }
 
     @PostMapping(value = "/permission")

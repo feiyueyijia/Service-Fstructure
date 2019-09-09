@@ -33,10 +33,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectEntity> implement
     }
 
     public boolean isLocked(ProjectEntity entity) throws BusinessException {
-//        if ("UNLOCKED".equals(entity.getLock())) {
-//            return false;
-//        }
-        if ("已锁定".equals(entity.getProgress())) {
+        if ("LOCKED".equals(entity.getLockin())) {
             return true;
         }
         return false;

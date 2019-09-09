@@ -57,11 +57,8 @@ public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> impleme
     }
 
     public boolean isLocked(FunctionEntity entity) throws BusinessException {
-//        if ("UNLOCKED".equals(entity.getLock())) {
-//            return false;
-//        }
-        if ("已锁定".equals(entity.getProgress())) {
-            return true;
+        if ("LOCKED".equals(entity.getLockin())) {
+            return false;
         }
         return false;
     }

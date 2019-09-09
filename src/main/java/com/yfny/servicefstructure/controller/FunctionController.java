@@ -1,5 +1,6 @@
 package com.yfny.servicefstructure.controller;
 
+import com.yfny.servicefstructure.constant.FunctionConstant;
 import com.yfny.servicefstructure.entity.FunctionEntity;
 import com.yfny.servicefstructure.service.FunctionService;
 import com.yfny.servicefstructure.valid.FunctionValid;
@@ -116,7 +117,7 @@ public class FunctionController {
     public InvokeResult selectOne(@RequestBody FunctionEntity entity) throws Exception {
         FunctionValid.validSelect(entity);
         FunctionEntity result = functionService.selectOne(entity);
-        return InvokeResult.readResult(result, "20210", "20211");
+        return InvokeResult.readResult(result, "20208", "20209");
     }
 
     /**
@@ -129,7 +130,7 @@ public class FunctionController {
     @ResponseBody
     public InvokeResult selectByPrimaryKey(@RequestParam(value = "key") Object key) throws Exception {
         FunctionEntity result = functionService.selectByPrimaryKey(key);
-        return InvokeResult.readResult(result, "20210", "20211");
+        return InvokeResult.readResult(result, "20208", "20209");
     }
 
     /**
@@ -162,7 +163,7 @@ public class FunctionController {
     @ResponseBody
     public InvokeResult findList(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<FunctionEntity> result = functionService.findList(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20208", "20209");
+        return InvokeResult.readResult(result, "20206", "20207");
     }
 
     /**
@@ -176,7 +177,7 @@ public class FunctionController {
     @ResponseBody
     public InvokeResult findAllList(@PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<FunctionEntity> result = functionService.findAllList(pageNum, pageSize);
-        return InvokeResult.readResult(result, "20208", "20209");
+        return InvokeResult.readResult(result, "20206", "20207");
     }
 
     /**
@@ -191,7 +192,7 @@ public class FunctionController {
     @ResponseBody
     public InvokeResult findSimpleListByAndCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<FunctionEntity> result = functionService.findSimpleListByAndCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20208", "20209");
+        return InvokeResult.readResult(result, "20206", "20207");
     }
 
 //    /**
@@ -206,7 +207,7 @@ public class FunctionController {
 //    @ResponseBody
 //    public InvokeResult findListByAndCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
 //        List<FunctionEntity> result = functionService.findListByAndCondition(entity, pageNum, pageSize);
-//        return InvokeResult.readResult(result, "20208", "20209");
+//        return InvokeResult.readResult(result, "20206", "20207");
 //    }
 
     /**
@@ -221,7 +222,7 @@ public class FunctionController {
     @ResponseBody
     public InvokeResult findSimpleListByORCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
         List<FunctionEntity> result = functionService.findSimpleListByORCondition(entity, pageNum, pageSize);
-        return InvokeResult.readResult(result, "20208", "20209");
+        return InvokeResult.readResult(result, "20206", "20207");
     }
 
 //    /**
@@ -236,7 +237,7 @@ public class FunctionController {
 //    @ResponseBody
 //    public InvokeResult findListByORCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
 //        List<FunctionEntity> result = functionService.findListByORCondition(entity, pageNum, pageSize);
-//        return InvokeResult.readResult(result, "20208", "20209");
+//        return InvokeResult.readResult(result, "20206", "20207");
 //    }
 
     /**
@@ -249,15 +250,25 @@ public class FunctionController {
     @ResponseBody
     public InvokeResult getTreeOf(@RequestBody FunctionEntity entity) throws Exception {
         Map<String, Object> result = functionService.getTreeOf(entity);
-        return InvokeResult.readResult(result, "20212", "20213");
+        return InvokeResult.readResult(result, "20214", "20215");
     }
 
     @PostMapping(value = "/lock")
     @ResponseBody
     public InvokeResult lock(@RequestBody FunctionEntity entity) throws Exception {
         FunctionValid.validLock(entity);
+        entity.setLockin(FunctionConstant.LOCKED);
         int result = functionService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20206", "20207");
+        return InvokeResult.writeResult(result, "20210", "20211");
+    }
+
+    @PostMapping(value = "/unLock")
+    @ResponseBody
+    public InvokeResult unLock(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionValid.validLock(entity);
+        entity.setLockin(FunctionConstant.UNLOCK);
+        int result = functionService.updateSelective(entity);
+        return InvokeResult.writeResult(result, "20212", "20213");
     }
 
     @PostMapping(value = "/permission")
