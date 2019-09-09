@@ -7,8 +7,8 @@ import com.yfny.utilscommon.util.InvokeResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 功能结构管理功能对象Controller
@@ -245,11 +245,11 @@ public class FunctionController {
      * @param entity 对象实体
      * @return 返回单个项目的功能树结构
      */
-    @PostMapping(value = "/getTreeOfProject")
+    @PostMapping(value = "/getTreeOf")
     @ResponseBody
-    public InvokeResult findSimpleListByORCondition(@RequestBody FunctionEntity entity) throws Exception {
-        List<FunctionEntity> result = new ArrayList<>();
-        return InvokeResult.readResult(result, "20208", "20209");
+    public InvokeResult getTreeOf(@RequestBody FunctionEntity entity) throws Exception {
+        Map<String, Object> result = functionService.getTreeOf(entity);
+        return InvokeResult.readResult(result, "20212", "20213");
     }
 
     @PostMapping(value = "/lock")

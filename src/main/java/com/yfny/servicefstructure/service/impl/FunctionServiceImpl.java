@@ -31,7 +31,8 @@ public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> impleme
         return this.functionMapper;
     }
 
-    public String getTreeOf(FunctionEntity entity) throws BusinessException {
+    public Map<String, Object> getTreeOf(FunctionEntity entity) throws BusinessException {
+        Map<String, Object> resultMap = new HashMap<>();
         List<FunctionEntity> list = findList(entity, null, null);
         List<Map<String, Object>> mapList = new ArrayList<>();
         for (FunctionEntity function : list) {
@@ -43,7 +44,9 @@ public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> impleme
             mapList.add(map);
         }
         String treeList = MultipleTreeUtils.getTreeList(list);
-        return treeList;
+        resultMap.put("tree", treeList);
+        resultMap.put("list", list);
+        return resultMap;
     }
 
     public boolean permission(FunctionEntity entity) throws BusinessException {
