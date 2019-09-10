@@ -69,7 +69,7 @@ public class FunctionValid {
                 case BaseEntity.SELECT:
 
                 case LOCK:
-                    throw new BusinessException("20207", params);
+                    throw new BusinessException("20211", params);
                 default:
 
             }

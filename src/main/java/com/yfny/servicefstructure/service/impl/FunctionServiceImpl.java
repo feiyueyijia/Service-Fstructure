@@ -1,5 +1,6 @@
 package com.yfny.servicefstructure.service.impl;
 
+import com.yfny.servicefstructure.constant.FunctionConstant;
 import com.yfny.servicefstructure.entity.FunctionEntity;
 import com.yfny.servicefstructure.mapper.FunctionMapper;
 import com.yfny.servicefstructure.service.FunctionService;
@@ -57,8 +58,8 @@ public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> impleme
     }
 
     public boolean isLocked(FunctionEntity entity) throws BusinessException {
-        if ("LOCKED".equals(entity.getLockin())) {
-            return false;
+        if (FunctionConstant.LOCKED.equals(entity.getLockin())) {
+            return true;
         }
         return false;
     }

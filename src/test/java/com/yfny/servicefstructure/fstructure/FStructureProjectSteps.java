@@ -3,6 +3,7 @@ package com.yfny.servicefstructure.fstructure;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.yfny.servicefstructure.base.APIBaseTest;
+import com.yfny.servicefstructure.constant.ProjectConstant;
 import com.yfny.servicefstructure.entity.ProjectEntity;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -68,7 +69,6 @@ public class FStructureProjectSteps extends APIBaseTest {
         Map<String, String> paramsMap = new HashMap<>();
 
         project.setName(name);
-        project.setLockin("已锁定");
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -103,7 +103,9 @@ public class FStructureProjectSteps extends APIBaseTest {
                 String projectName = jsonObject.getString("name");
                 if (name.equals(projectName)) {
                     String id = jsonObject.getString("id");
+                    String lock = jsonObject.getString("lockin");
                     project.setId(id);
+                    project.setLockin(lock);
                 }
             }
         }
@@ -143,8 +145,8 @@ public class FStructureProjectSteps extends APIBaseTest {
         project.setName(name);
         project.setDescription(description);
         project.setProgressBar("0%");
-        project.setProgress("未开始");
-        project.setLockin("未锁定");
+        project.setProgress(ProjectConstant.NOT_START);
+        project.setLockin(ProjectConstant.UNLOCK);
         project.setCreateTime(new Date());
         project.setUpdateTime(new Date());
 

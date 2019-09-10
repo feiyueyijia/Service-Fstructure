@@ -69,7 +69,7 @@ public class ProjectValid {
                 case BaseEntity.SELECT:
 
                 case LOCK:
-                    throw new BusinessException("20107", params);
+                    throw new BusinessException("20111", params);
                 default:
 
             }

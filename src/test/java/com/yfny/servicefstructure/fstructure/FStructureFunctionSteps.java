@@ -3,6 +3,7 @@ package com.yfny.servicefstructure.fstructure;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.yfny.servicefstructure.base.APIBaseTest;
+import com.yfny.servicefstructure.constant.FunctionConstant;
 import com.yfny.servicefstructure.entity.FunctionEntity;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -68,7 +69,6 @@ public class FStructureFunctionSteps extends APIBaseTest {
         Map<String, String> paramsMap = new HashMap<>();
 
         function.setName(name);
-        function.setLockin("已锁定");
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -103,7 +103,9 @@ public class FStructureFunctionSteps extends APIBaseTest {
                 String functionName = jsonObject.getString("name");
                 if (name.equals(functionName)) {
                     String id = jsonObject.getString("id");
+                    String lock = jsonObject.getString("lockin");
                     function.setId(id);
+                    function.setLockin(lock);
                 }
             }
         }
@@ -144,8 +146,8 @@ public class FStructureFunctionSteps extends APIBaseTest {
         function.setName(name);
         function.setDescription(description);
         function.setProgressBar("0%");
-        function.setProgress("未开始");
-        function.setLockin("未锁定");
+        function.setProgress(FunctionConstant.NOT_START);
+        function.setLockin(FunctionConstant.UNLOCK);
         function.setCreateTime(new Date());
         function.setUpdateTime(new Date());
 

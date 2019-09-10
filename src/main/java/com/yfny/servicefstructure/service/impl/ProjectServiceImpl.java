@@ -1,5 +1,6 @@
 package com.yfny.servicefstructure.service.impl;
 
+import com.yfny.servicefstructure.constant.ProjectConstant;
 import com.yfny.servicefstructure.entity.ProjectEntity;
 import com.yfny.servicefstructure.mapper.ProjectMapper;
 import com.yfny.servicefstructure.service.ProjectService;
@@ -33,7 +34,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<ProjectEntity> implement
     }
 
     public boolean isLocked(ProjectEntity entity) throws BusinessException {
-        if ("LOCKED".equals(entity.getLockin())) {
+        if (ProjectConstant.LOCKED.equals(entity.getLockin())) {
             return true;
         }
         return false;
