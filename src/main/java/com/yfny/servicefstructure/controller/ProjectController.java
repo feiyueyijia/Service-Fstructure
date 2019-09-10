@@ -22,19 +22,8 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-//    /**
-//     * 保存一个实体，null的属性也会保存，不会使用数据库默认值
-//     *
-//     * @param entity 对象实体
-//     * @return 返回0为失败，返回1为成功
-//     */
-//    @PostMapping(value = "/insert")
-//    @ResponseBody
-//    public InvokeResult insert(@RequestBody ProjectEntity entity) throws Exception {
-//        ProjectValid.validInsert(entity);
-//        int result = projectService.insert(entity);
-//        return InvokeResult.writeResult(result, "20100", "20101");
-//    }
+    @Autowired
+    private ProjectValid projectValid;
 
     /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
@@ -49,20 +38,6 @@ public class ProjectController {
         int result = projectService.insertSelective(entity);
         return InvokeResult.writeResult(result, "20100", "20101");
     }
-
-//    /**
-//     * 根据主键更新实体全部字段，null值会被更新
-//     *
-//     * @param entity 对象实体
-//     * @return 返回0为失败，返回1为成功
-//     */
-//    @PostMapping(value = "/update")
-//    @ResponseBody
-//    public InvokeResult update(@RequestBody ProjectEntity entity) throws Exception {
-//        ProjectValid.validUpdate(entity);
-//        int result = projectService.update(entity);
-//        return InvokeResult.writeResult(result, "20102", "20103");
-//    }
 
     /**
      * 根据主键更新属性不为null的值
@@ -242,7 +217,7 @@ public class ProjectController {
     @PostMapping(value = "/lock")
     @ResponseBody
     public InvokeResult lock(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validLock(entity);
+        projectValid.validLock(entity);
         entity.setLockin(ProjectConstant.LOCKED);
         int result = projectService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20110", "20111");
@@ -251,7 +226,7 @@ public class ProjectController {
     @PostMapping(value = "/unLock")
     @ResponseBody
     public InvokeResult unLock(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validLock(entity);
+        projectValid.validLock(entity);
         entity.setLockin(ProjectConstant.UNLOCK);
         int result = projectService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20112", "20113");

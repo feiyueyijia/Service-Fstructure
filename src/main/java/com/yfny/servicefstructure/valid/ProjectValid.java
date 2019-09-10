@@ -58,7 +58,7 @@ public class ProjectValid {
     private static void validPermission(ProjectEntity entity, int scenario) throws BusinessException {
         boolean flag = projectValid.projectService.permission(entity);
         if (!flag) {
-            String params = InvokeResult.getMsgFromCfg("20133", null);
+            String params = InvokeResult.getMsgFromCfg("20134", null);
             switch (scenario) {
                 case BaseEntity.INSERT:
 
@@ -80,7 +80,7 @@ public class ProjectValid {
     private static void validLocked(ProjectEntity entity, int scenario) throws BusinessException {
         boolean flag = projectValid.projectService.isLocked(entity);
         if (flag) {
-            String params = InvokeResult.getMsgFromCfg("20134", null);
+            String params = InvokeResult.getMsgFromCfg("20135", null);
             switch (scenario) {
                 case BaseEntity.INSERT:
 
@@ -128,7 +128,7 @@ public class ProjectValid {
                 case BaseEntity.DELETE:
 
                 case BaseEntity.SELECT:
-                    throw new BusinessException("20135");
+                    throw new BusinessException("20133");
                 default:
 
             }
@@ -146,7 +146,7 @@ public class ProjectValid {
                 case BaseEntity.DELETE:
 
                 case BaseEntity.SELECT:
-                    throw new BusinessException("20135");
+                    throw new BusinessException("20133");
                 default:
 
             }

@@ -1,27 +1,25 @@
 package com.yfny.servicefstructure.controller;
 
-import com.yfny.servicefstructure.constant.FunctionConstant;
-import com.yfny.servicefstructure.entity.FunctionEntity;
-import com.yfny.servicefstructure.service.FunctionService;
-import com.yfny.servicefstructure.valid.FunctionValid;
+import com.yfny.servicefstructure.entity.PanelEntity;
+import com.yfny.servicefstructure.service.PanelService;
+import com.yfny.servicefstructure.valid.PanelValid;
 import com.yfny.utilscommon.util.InvokeResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * 功能结构管理功能对象Controller
+ * 功能结构管理面板对象Controller
  * Author auto
  * Date  2019-09-05
  */
 @RestController
-@RequestMapping(value = "/function")
-public class FunctionController {
+@RequestMapping(value = "/panel")
+public class PanelController {
 
     @Autowired
-    private FunctionService functionService;
+    private PanelService panelService;
 
     /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
@@ -31,9 +29,8 @@ public class FunctionController {
      */
     @PostMapping(value = "/insertSelective")
     @ResponseBody
-    public InvokeResult insertSelective(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validInsert(entity);
-        int result = functionService.insertSelective(entity);
+    public InvokeResult insertSelective(@RequestBody PanelEntity entity) throws Exception {
+        int result = panelService.insertSelective(entity);
         return InvokeResult.writeResult(result, "20200", "20201");
     }
 
@@ -45,9 +42,8 @@ public class FunctionController {
      */
     @PostMapping(value = "/updateSelective")
     @ResponseBody
-    public InvokeResult updateSelective(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validUpdate(entity);
-        int result = functionService.updateSelective(entity);
+    public InvokeResult updateSelective(@RequestBody PanelEntity entity) throws Exception {
+        int result = panelService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20202", "20203");
     }
 
@@ -59,9 +55,9 @@ public class FunctionController {
      */
     @PostMapping(value = "/delete")
     @ResponseBody
-    public InvokeResult delete(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validDelete(entity);
-        int result = functionService.delete(entity);
+    public InvokeResult delete(@RequestBody PanelEntity entity) throws Exception {
+        //PanelValid.validDelete(entity);
+        int result = panelService.delete(entity);
         return InvokeResult.writeResult(result, "20204", "20205");
     }
 
@@ -74,7 +70,7 @@ public class FunctionController {
     @PostMapping(value = "/deleteByPrimaryKey")
     @ResponseBody
     public InvokeResult deleteByPrimaryKey(@RequestParam(value = "key") Object key) throws Exception {
-        int result = functionService.deleteByPrimaryKey(key);
+        int result = panelService.deleteByPrimaryKey(key);
         return InvokeResult.writeResult(result, "20204", "20205");
     }
 
@@ -86,9 +82,8 @@ public class FunctionController {
      */
     @PostMapping(value = "/selectOne")
     @ResponseBody
-    public InvokeResult selectOne(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validSelect(entity);
-        FunctionEntity result = functionService.selectOne(entity);
+    public InvokeResult selectOne(@RequestBody PanelEntity entity) throws Exception {
+        PanelEntity result = panelService.selectOne(entity);
         return InvokeResult.readResult(result, "20208", "20209");
     }
 
@@ -101,7 +96,7 @@ public class FunctionController {
     @GetMapping(value = "/selectByPrimaryKey")
     @ResponseBody
     public InvokeResult selectByPrimaryKey(@RequestParam(value = "key") Object key) throws Exception {
-        FunctionEntity result = functionService.selectByPrimaryKey(key);
+        PanelEntity result = panelService.selectByPrimaryKey(key);
         return InvokeResult.readResult(result, "20208", "20209");
     }
 
@@ -113,8 +108,8 @@ public class FunctionController {
      */
     @PostMapping(value = "/selectCount")
     @ResponseBody
-    public InvokeResult selectCount(@RequestBody FunctionEntity entity) throws Exception {
-        int result = functionService.selectCount(entity);
+    public InvokeResult selectCount(@RequestBody PanelEntity entity) throws Exception {
+        int result = panelService.selectCount(entity);
         if (result >= 0) {
             return InvokeResult.success(result);
         } else if (result == -1) {
@@ -133,8 +128,8 @@ public class FunctionController {
      */
     @PostMapping(value = {"/findList", "/findList/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findList(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<FunctionEntity> result = functionService.findList(entity, pageNum, pageSize);
+    public InvokeResult findList(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<PanelEntity> result = panelService.findList(entity, pageNum, pageSize);
         return InvokeResult.readResult(result, "20206", "20207");
     }
 
@@ -148,7 +143,7 @@ public class FunctionController {
     @GetMapping(value = {"/findAllList", "/findAllList/{pageNum}/{pageSize}"})
     @ResponseBody
     public InvokeResult findAllList(@PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<FunctionEntity> result = functionService.findAllList(pageNum, pageSize);
+        List<PanelEntity> result = panelService.findAllList(pageNum, pageSize);
         return InvokeResult.readResult(result, "20206", "20207");
     }
 
@@ -162,8 +157,8 @@ public class FunctionController {
      */
     @PostMapping(value = {"/findSimpleListByAndCondition", "/findSimpleListByAndCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findSimpleListByAndCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<FunctionEntity> result = functionService.findSimpleListByAndCondition(entity, pageNum, pageSize);
+    public InvokeResult findSimpleListByAndCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<PanelEntity> result = panelService.findSimpleListByAndCondition(entity, pageNum, pageSize);
         return InvokeResult.readResult(result, "20206", "20207");
     }
 
@@ -177,8 +172,8 @@ public class FunctionController {
 //     */
 //    @PostMapping(value = {"/findListByAndCondition", "/findListByAndCondition/{pageNum}/{pageSize}"})
 //    @ResponseBody
-//    public InvokeResult findListByAndCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-//        List<FunctionEntity> result = functionService.findListByAndCondition(entity, pageNum, pageSize);
+//    public InvokeResult findListByAndCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+//        List<PanelEntity> result = panelService.findListByAndCondition(entity, pageNum, pageSize);
 //        return InvokeResult.readResult(result, "20206", "20207");
 //    }
 
@@ -192,8 +187,8 @@ public class FunctionController {
      */
     @PostMapping(value = {"/findSimpleListByORCondition", "/findSimpleListByORCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findSimpleListByORCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<FunctionEntity> result = functionService.findSimpleListByORCondition(entity, pageNum, pageSize);
+    public InvokeResult findSimpleListByORCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<PanelEntity> result = panelService.findSimpleListByORCondition(entity, pageNum, pageSize);
         return InvokeResult.readResult(result, "20206", "20207");
     }
 
@@ -207,47 +202,9 @@ public class FunctionController {
 //     */
 //    @PostMapping(value = {"/findListByORCondition", "/findListByORCondition/{pageNum}/{pageSize}"})
 //    @ResponseBody
-//    public InvokeResult findListByORCondition(@RequestBody FunctionEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-//        List<FunctionEntity> result = functionService.findListByORCondition(entity, pageNum, pageSize);
+//    public InvokeResult findListByORCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+//        List<PanelEntity> result = panelService.findListByORCondition(entity, pageNum, pageSize);
 //        return InvokeResult.readResult(result, "20206", "20207");
 //    }
-
-    /**
-     * 查询功能树结构
-     *
-     * @param entity 对象实体
-     * @return 返回单个项目的功能树结构
-     */
-    @PostMapping(value = "/getTreeOf")
-    @ResponseBody
-    public InvokeResult getTreeOf(@RequestBody FunctionEntity entity) throws Exception {
-        Map<String, Object> result = functionService.getTreeOf(entity);
-        return InvokeResult.readResult(result, "20214", "20215");
-    }
-
-    @PostMapping(value = "/lock")
-    @ResponseBody
-    public InvokeResult lock(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validLock(entity);
-        entity.setLockin(FunctionConstant.LOCKED);
-        int result = functionService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20210", "20211");
-    }
-
-    @PostMapping(value = "/unLock")
-    @ResponseBody
-    public InvokeResult unLock(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validLock(entity);
-        entity.setLockin(FunctionConstant.UNLOCK);
-        int result = functionService.updateSelective(entity);
-        return InvokeResult.writeResult(result, "20212", "20213");
-    }
-
-    @PostMapping(value = "/permission")
-    @ResponseBody
-    public InvokeResult permission(@RequestBody FunctionEntity entity) throws Exception {
-        boolean result = functionService.permission(entity);
-        return InvokeResult.readResult(result, "10001", "10002");
-    }
 
 }

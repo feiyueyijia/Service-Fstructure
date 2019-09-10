@@ -187,7 +187,12 @@ public class FStructureProjectSteps extends APIBaseTest {
     }
 
     @And("^项目--点击确定按钮$")
-    public void confirm() {
+    public void confirmSubmit() {
+
+    }
+
+    @And("^项目--确认删除操作$")
+    public void confirmDelete() {
 
     }
 

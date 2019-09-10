@@ -58,7 +58,7 @@ public class FunctionValid {
     private static void validPermission(FunctionEntity entity, int scenario) throws BusinessException {
         boolean flag = functionValid.functionService.permission(entity);
         if (!flag) {
-            String params = InvokeResult.getMsgFromCfg("20133", null);
+            String params = InvokeResult.getMsgFromCfg("20134", null);
             switch (scenario) {
                 case BaseEntity.INSERT:
 
@@ -80,7 +80,7 @@ public class FunctionValid {
     private static void validLocked(FunctionEntity entity, int scenario) throws BusinessException {
         boolean flag = functionValid.functionService.isLocked(entity);
         if (flag) {
-            String params = InvokeResult.getMsgFromCfg("20234", null);
+            String params = InvokeResult.getMsgFromCfg("20235", null);
             switch (scenario) {
                 case BaseEntity.INSERT:
 
@@ -128,7 +128,7 @@ public class FunctionValid {
                 case BaseEntity.DELETE:
 
                 case BaseEntity.SELECT:
-                    throw new BusinessException("20235");
+                    throw new BusinessException("20233");
                 default:
 
             }
@@ -146,7 +146,7 @@ public class FunctionValid {
                 case BaseEntity.DELETE:
 
                 case BaseEntity.SELECT:
-                    throw new BusinessException("20235");
+                    throw new BusinessException("20233");
                 default:
 
             }
