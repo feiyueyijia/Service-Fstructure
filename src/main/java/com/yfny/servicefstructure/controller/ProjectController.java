@@ -34,7 +34,7 @@ public class ProjectController {
     @PostMapping(value = "/insertSelective")
     @ResponseBody
     public InvokeResult insertSelective(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validInsert(entity);
+        projectValid.validInsert(entity);
         int result = projectService.insertSelective(entity);
         return InvokeResult.writeResult(result, "20100", "20101");
     }
@@ -48,7 +48,7 @@ public class ProjectController {
     @PostMapping(value = "/updateSelective")
     @ResponseBody
     public InvokeResult updateSelective(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validUpdate(entity);
+        projectValid.validUpdate(entity);
         int result = projectService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20102", "20103");
     }
@@ -62,7 +62,7 @@ public class ProjectController {
     @PostMapping(value = "/delete")
     @ResponseBody
     public InvokeResult delete(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validDelete(entity);
+        projectValid.validDelete(entity);
         int result = projectService.delete(entity);
         return InvokeResult.writeResult(result, "20104", "20105");
     }
@@ -89,7 +89,7 @@ public class ProjectController {
     @PostMapping(value = "/selectOne")
     @ResponseBody
     public InvokeResult selectOne(@RequestBody ProjectEntity entity) throws Exception {
-        ProjectValid.validSelect(entity);
+        projectValid.validSelect(entity);
         ProjectEntity result = projectService.selectOne(entity);
         return InvokeResult.readResult(result, "20108", "20109");
     }

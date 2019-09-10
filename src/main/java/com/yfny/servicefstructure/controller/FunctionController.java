@@ -23,6 +23,9 @@ public class FunctionController {
     @Autowired
     private FunctionService functionService;
 
+    @Autowired
+    private FunctionValid functionValid;
+
     /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
      *
@@ -32,7 +35,7 @@ public class FunctionController {
     @PostMapping(value = "/insertSelective")
     @ResponseBody
     public InvokeResult insertSelective(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validInsert(entity);
+        functionValid.validInsert(entity);
         int result = functionService.insertSelective(entity);
         return InvokeResult.writeResult(result, "20200", "20201");
     }
@@ -46,7 +49,7 @@ public class FunctionController {
     @PostMapping(value = "/updateSelective")
     @ResponseBody
     public InvokeResult updateSelective(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validUpdate(entity);
+        functionValid.validUpdate(entity);
         int result = functionService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20202", "20203");
     }
@@ -60,7 +63,7 @@ public class FunctionController {
     @PostMapping(value = "/delete")
     @ResponseBody
     public InvokeResult delete(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validDelete(entity);
+        functionValid.validDelete(entity);
         int result = functionService.delete(entity);
         return InvokeResult.writeResult(result, "20204", "20205");
     }
@@ -87,7 +90,7 @@ public class FunctionController {
     @PostMapping(value = "/selectOne")
     @ResponseBody
     public InvokeResult selectOne(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validSelect(entity);
+        functionValid.validSelect(entity);
         FunctionEntity result = functionService.selectOne(entity);
         return InvokeResult.readResult(result, "20208", "20209");
     }
@@ -228,7 +231,7 @@ public class FunctionController {
     @PostMapping(value = "/lock")
     @ResponseBody
     public InvokeResult lock(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validLock(entity);
+        functionValid.validLock(entity);
         entity.setLockin(FunctionConstant.LOCKED);
         int result = functionService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20210", "20211");
@@ -237,7 +240,7 @@ public class FunctionController {
     @PostMapping(value = "/unLock")
     @ResponseBody
     public InvokeResult unLock(@RequestBody FunctionEntity entity) throws Exception {
-        FunctionValid.validLock(entity);
+        functionValid.validLock(entity);
         entity.setLockin(FunctionConstant.UNLOCK);
         int result = functionService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20212", "20213");

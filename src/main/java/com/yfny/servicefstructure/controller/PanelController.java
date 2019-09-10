@@ -21,6 +21,9 @@ public class PanelController {
     @Autowired
     private PanelService panelService;
 
+    @Autowired
+    private PanelValid panelValid;
+
     /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
      *
@@ -30,6 +33,7 @@ public class PanelController {
     @PostMapping(value = "/insertSelective")
     @ResponseBody
     public InvokeResult insertSelective(@RequestBody PanelEntity entity) throws Exception {
+        panelValid.validInsert(entity);
         int result = panelService.insertSelective(entity);
         return InvokeResult.writeResult(result, "20200", "20201");
     }
@@ -43,6 +47,7 @@ public class PanelController {
     @PostMapping(value = "/updateSelective")
     @ResponseBody
     public InvokeResult updateSelective(@RequestBody PanelEntity entity) throws Exception {
+        panelValid.validUpdate(entity);
         int result = panelService.updateSelective(entity);
         return InvokeResult.writeResult(result, "20202", "20203");
     }
@@ -56,7 +61,7 @@ public class PanelController {
     @PostMapping(value = "/delete")
     @ResponseBody
     public InvokeResult delete(@RequestBody PanelEntity entity) throws Exception {
-        //PanelValid.validDelete(entity);
+        panelValid.validDelete(entity);
         int result = panelService.delete(entity);
         return InvokeResult.writeResult(result, "20204", "20205");
     }
@@ -83,6 +88,7 @@ public class PanelController {
     @PostMapping(value = "/selectOne")
     @ResponseBody
     public InvokeResult selectOne(@RequestBody PanelEntity entity) throws Exception {
+        panelValid.validSelect(entity);
         PanelEntity result = panelService.selectOne(entity);
         return InvokeResult.readResult(result, "20208", "20209");
     }

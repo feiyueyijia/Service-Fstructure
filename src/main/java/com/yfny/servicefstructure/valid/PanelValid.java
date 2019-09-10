@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * Date  2019-08-21
  */
 @Component
-public class PanelValid extends BaseValid<PanelEntity> {
+public class PanelValid implements BaseValid<PanelEntity> {
 
     @Autowired
     private PanelService panelService;

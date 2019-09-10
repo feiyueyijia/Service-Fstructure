@@ -4,12 +4,11 @@ import com.yfny.servicefstructure.entity.FunctionEntity;
 import com.yfny.servicefstructure.service.FunctionService;
 import com.yfny.utilscommon.basemvc.common.BaseEntity;
 import com.yfny.utilscommon.basemvc.common.BusinessException;
+import com.yfny.utilscommon.basemvc.producer.BaseValid;
 import com.yfny.utilscommon.util.InvokeResult;
 import com.yfny.utilscommon.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 /**
  * 功能结构管理项目功能属性验证
@@ -17,46 +16,39 @@ import javax.annotation.PostConstruct;
  * Date  2019-08-21
  */
 @Component
-public class FunctionValid {
+public class FunctionValid implements BaseValid<FunctionEntity> {
 
     @Autowired
     private FunctionService functionService;
 
-    private static FunctionValid functionValid;
-
     private static final int LOCK = 5;
 
-    @PostConstruct
-    public void init() {
-        functionValid = this;
-    }
-
-    public static void validInsert(FunctionEntity entity) throws BusinessException {
+    public void validInsert(FunctionEntity entity) throws BusinessException {
         validNameEmpty(entity, BaseEntity.INSERT);
         validNameDuplicate(entity, BaseEntity.INSERT);
         validNameLegal(entity, BaseEntity.INSERT);
     }
 
-    public static void validUpdate(FunctionEntity entity) throws BusinessException {
+    public void validUpdate(FunctionEntity entity) throws BusinessException {
         validPermission(entity, BaseEntity.UPDATE);
         validLocked(entity, BaseEntity.UPDATE);
     }
 
-    public static void validDelete(FunctionEntity entity) throws BusinessException {
+    public void validDelete(FunctionEntity entity) throws BusinessException {
         validPermission(entity, BaseEntity.DELETE);
     }
 
-    public static void validSelect(FunctionEntity entity) throws BusinessException {
+    public void validSelect(FunctionEntity entity) throws BusinessException {
         validNameEmpty(entity, BaseEntity.SELECT);
         validNameLegal(entity, BaseEntity.SELECT);
     }
 
-    public static void validLock(FunctionEntity entity) throws BusinessException {
+    public void validLock(FunctionEntity entity) throws BusinessException {
         validPermission(entity, LOCK);
     }
 
-    private static void validPermission(FunctionEntity entity, int scenario) throws BusinessException {
-        boolean flag = functionValid.functionService.permission(entity);
+    private void validPermission(FunctionEntity entity, int scenario) throws BusinessException {
+        boolean flag = functionService.permission(entity);
         if (!flag) {
             String params = InvokeResult.getMsgFromCfg("20134", null);
             switch (scenario) {
@@ -77,8 +69,8 @@ public class FunctionValid {
         }
     }
 
-    private static void validLocked(FunctionEntity entity, int scenario) throws BusinessException {
-        boolean flag = functionValid.functionService.isLocked(entity);
+    private void validLocked(FunctionEntity entity, int scenario) throws BusinessException {
+        boolean flag = functionService.isLocked(entity);
         if (flag) {
             String params = InvokeResult.getMsgFromCfg("20235", null);
             switch (scenario) {
@@ -96,10 +88,10 @@ public class FunctionValid {
         }
     }
 
-    private static void validNameDuplicate(FunctionEntity entity, int scenario) throws BusinessException {
+    private void validNameDuplicate(FunctionEntity entity, int scenario) throws BusinessException {
         FunctionEntity param = new FunctionEntity();
         param.setName(entity.getName());
-        int p = functionValid.functionService.selectCount(param);
+        int p = functionService.selectCount(param);
         if (p > 0) {
             String params = InvokeResult.getMsgFromCfg("20230", null);
             switch (scenario) {
@@ -117,7 +109,7 @@ public class FunctionValid {
         }
     }
 
-    private static void validNameEmpty(FunctionEntity entity, int scenario) throws BusinessException {
+    private void validNameEmpty(FunctionEntity entity, int scenario) throws BusinessException {
         if (StringUtils.isEmpty(entity.getName())) {
             String params = InvokeResult.getMsgFromCfg("20231", null);
             switch (scenario) {
@@ -135,7 +127,7 @@ public class FunctionValid {
         }
     }
 
-    private static void validNameLegal(FunctionEntity entity, int scenario) throws BusinessException {
+    private void validNameLegal(FunctionEntity entity, int scenario) throws BusinessException {
         if (entity.getName().contains("$%^&*~!")) {
             String params = InvokeResult.getMsgFromCfg("20232", null);
             switch (scenario) {
