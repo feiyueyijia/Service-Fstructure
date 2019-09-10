@@ -240,12 +240,13 @@ public class FStructureFunctionSteps extends APIBaseTest {
         /*--------------------业务组装结束--------------------*/
 
         //指定要请求的接口路径
-        String url = "/function/findList";
+        String url = "/function/getTreeOf";
 
         //模拟页面请求
         JSONObject result = postRequest(url, content);
         loadListResultMessage = result.getString("message");
-        jsonArray = result.getJSONArray("data");
+        JSONObject data = result.getJSONObject("data");
+        jsonArray = data.getJSONArray("list");
     }
 
     @Then("^功能--返回新建功能执行结果 \"([^\"]*)\"$")

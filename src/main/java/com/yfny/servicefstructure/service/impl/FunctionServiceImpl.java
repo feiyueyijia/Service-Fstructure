@@ -44,7 +44,7 @@ public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> impleme
             map.put("level", function.getLevel());
             mapList.add(map);
         }
-        String treeList = MultipleTreeUtils.getTreeList(list);
+        String treeList = MultipleTreeUtils.getTreeList(mapList);
         resultMap.put("tree", treeList);
         resultMap.put("list", list);
         return resultMap;

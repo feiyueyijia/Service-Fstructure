@@ -7,7 +7,7 @@ Feature: 功能结构管理功能部分
     Given 功能--登录用户拥有项目权限
     And   功能--打开选中的可操作项目
     Then  功能--返回打开项目执行结果:
-      | 功能列表加载成功 |
+      | 功能树加载成功 |
 
   @FStructureTest
   Scenario Outline: 新建功能
