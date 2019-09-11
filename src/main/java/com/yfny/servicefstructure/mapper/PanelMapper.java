@@ -23,7 +23,7 @@ public interface PanelMapper extends BaseMapper<PanelEntity> {
      * @return 返回对象列表为查询结果
      */
     @SelectProvider(type = PanelSqlBuilder.class, method = "buildFindPanelByAndCondition")
-    List<PanelEntity> findSimpleListByAndCondition(@Param("panel") PanelEntity panel);
+    List<PanelEntity> findListByAndCondition(@Param("panel") PanelEntity panel);
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -32,7 +32,7 @@ public interface PanelMapper extends BaseMapper<PanelEntity> {
      * @return 返回对象列表为查询结果
      */
     @SelectProvider(type = PanelSqlBuilder.class, method = "buildFindPanelByORCondition")
-    List<PanelEntity> findSimpleListByORCondition(@Param("panel") PanelEntity panel);
+    List<PanelEntity> findListByORCondition(@Param("panel") PanelEntity panel);
 
     /**
      * 根据外键查询相应对象（一对多关系）

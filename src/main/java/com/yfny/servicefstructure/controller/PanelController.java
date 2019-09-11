@@ -161,27 +161,12 @@ public class PanelController {
      * @param pageSize 每页数量
      * @return 返回对象列表为查询结果
      */
-    @PostMapping(value = {"/findSimpleListByAndCondition", "/findSimpleListByAndCondition/{pageNum}/{pageSize}"})
+    @PostMapping(value = {"/findListByAndCondition", "/findListByAndCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findSimpleListByAndCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<PanelEntity> result = panelService.findSimpleListByAndCondition(entity, pageNum, pageSize);
+    public InvokeResult findListByAndCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<PanelEntity> result = panelService.findListByAndCondition(entity, pageNum, pageSize);
         return InvokeResult.readResult(result, "20206", "20207");
     }
-
-//    /**
-//     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
-//     *
-//     * @param entity   对象实体
-//     * @param pageNum  页数
-//     * @param pageSize 每页数量
-//     * @return 返回对象列表为查询结果
-//     */
-//    @PostMapping(value = {"/findListByAndCondition", "/findListByAndCondition/{pageNum}/{pageSize}"})
-//    @ResponseBody
-//    public InvokeResult findListByAndCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-//        List<PanelEntity> result = panelService.findListByAndCondition(entity, pageNum, pageSize);
-//        return InvokeResult.readResult(result, "20206", "20207");
-//    }
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -191,26 +176,11 @@ public class PanelController {
      * @param pageSize 每页数量
      * @return 返回对象列表为查询结果
      */
-    @PostMapping(value = {"/findSimpleListByORCondition", "/findSimpleListByORCondition/{pageNum}/{pageSize}"})
+    @PostMapping(value = {"/findListByORCondition", "/findListByORCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findSimpleListByORCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<PanelEntity> result = panelService.findSimpleListByORCondition(entity, pageNum, pageSize);
+    public InvokeResult findListByORCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<PanelEntity> result = panelService.findListByORCondition(entity, pageNum, pageSize);
         return InvokeResult.readResult(result, "20206", "20207");
     }
-
-//    /**
-//     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
-//     *
-//     * @param entity   对象实体
-//     * @param pageNum  页数
-//     * @param pageSize 每页数量
-//     * @return 返回对象列表为查询结果
-//     */
-//    @PostMapping(value = {"/findListByORCondition", "/findListByORCondition/{pageNum}/{pageSize}"})
-//    @ResponseBody
-//    public InvokeResult findListByORCondition(@RequestBody PanelEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-//        List<PanelEntity> result = panelService.findListByORCondition(entity, pageNum, pageSize);
-//        return InvokeResult.readResult(result, "20206", "20207");
-//    }
 
 }

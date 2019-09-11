@@ -162,27 +162,12 @@ public class ProjectController {
      * @param pageSize 每页数量
      * @return 返回对象列表为查询结果
      */
-    @PostMapping(value = {"/findSimpleListByAndCondition", "/findSimpleListByAndCondition/{pageNum}/{pageSize}"})
+    @PostMapping(value = {"/findListByAndCondition", "/findListByAndCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findSimpleListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findSimpleListByAndCondition(entity, pageNum, pageSize);
+    public InvokeResult findListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<ProjectEntity> result = projectService.findListByAndCondition(entity, pageNum, pageSize);
         return InvokeResult.readResult(result, "20106", "20107");
     }
-
-//    /**
-//     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
-//     *
-//     * @param entity   对象实体
-//     * @param pageNum  页数
-//     * @param pageSize 每页数量
-//     * @return 返回对象列表为查询结果
-//     */
-//    @PostMapping(value = {"/findListByAndCondition", "/findListByAndCondition/{pageNum}/{pageSize}"})
-//    @ResponseBody
-//    public InvokeResult findListByAndCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-//        List<ProjectEntity> result = projectService.findListByAndCondition(entity, pageNum, pageSize);
-//        return InvokeResult.readResult(result, "20106", "20107");
-//    }
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -192,27 +177,12 @@ public class ProjectController {
      * @param pageSize 每页数量
      * @return 返回对象列表为查询结果
      */
-    @PostMapping(value = {"/findSimpleListByORCondition", "/findSimpleListByORCondition/{pageNum}/{pageSize}"})
+    @PostMapping(value = {"/findListByORCondition", "/findListByORCondition/{pageNum}/{pageSize}"})
     @ResponseBody
-    public InvokeResult findSimpleListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-        List<ProjectEntity> result = projectService.findSimpleListByORCondition(entity, pageNum, pageSize);
+    public InvokeResult findListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
+        List<ProjectEntity> result = projectService.findListByORCondition(entity, pageNum, pageSize);
         return InvokeResult.readResult(result, "20106", "20107");
     }
-
-//    /**
-//     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
-//     *
-//     * @param entity   对象实体
-//     * @param pageNum  页数
-//     * @param pageSize 每页数量
-//     * @return 返回对象列表为查询结果
-//     */
-//    @PostMapping(value = {"/findListByORCondition", "/findListByORCondition/{pageNum}/{pageSize}"})
-//    @ResponseBody
-//    public InvokeResult findListByORCondition(@RequestBody ProjectEntity entity, @PathVariable(value = "pageNum", required = false) String pageNum, @PathVariable(value = "pageSize", required = false) String pageSize) throws Exception {
-//        List<ProjectEntity> result = projectService.findListByORCondition(entity, pageNum, pageSize);
-//        return InvokeResult.readResult(result, "20106", "20107");
-//    }
 
     @PostMapping(value = "/lock")
     @ResponseBody

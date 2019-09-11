@@ -22,7 +22,7 @@ public interface ProjectMapper extends BaseMapper<ProjectEntity> {
      * @return 返回对象列表为查询结果
      */
     @SelectProvider(type = ProjectSqlBuilder.class, method = "buildFindProjectByAndCondition")
-    List<ProjectEntity> findSimpleListByAndCondition(@Param("project") ProjectEntity project);
+    List<ProjectEntity> findListByAndCondition(@Param("project") ProjectEntity project);
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -31,6 +31,6 @@ public interface ProjectMapper extends BaseMapper<ProjectEntity> {
      * @return 返回对象列表为查询结果
      */
     @SelectProvider(type = ProjectSqlBuilder.class, method = "buildFindProjectByORCondition")
-    List<ProjectEntity> findSimpleListByORCondition(@Param("project") ProjectEntity project);
+    List<ProjectEntity> findListByORCondition(@Param("project") ProjectEntity project);
 
 }

@@ -22,7 +22,7 @@ public interface FunctionMapper extends BaseMapper<FunctionEntity> {
      * @return 返回对象列表为查询结果
      */
     @SelectProvider(type = FunctionSqlBuilder.class, method = "buildFindFunctionByAndCondition")
-    List<FunctionEntity> findSimpleListByAndCondition(@Param("function") FunctionEntity function);
+    List<FunctionEntity> findListByAndCondition(@Param("function") FunctionEntity function);
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -31,7 +31,7 @@ public interface FunctionMapper extends BaseMapper<FunctionEntity> {
      * @return 返回对象列表为查询结果
      */
     @SelectProvider(type = FunctionSqlBuilder.class, method = "buildFindFunctionByORCondition")
-    List<FunctionEntity> findSimpleListByORCondition(@Param("function") FunctionEntity function);
+    List<FunctionEntity> findListByORCondition(@Param("function") FunctionEntity function);
 
     /**
      * 根据实体中的主键进行查询单个对象
