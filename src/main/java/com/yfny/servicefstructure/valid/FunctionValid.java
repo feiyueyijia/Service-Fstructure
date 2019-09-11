@@ -47,6 +47,10 @@ public class FunctionValid implements BaseValid<FunctionEntity> {
         validPermission(entity, LOCK);
     }
 
+    public void validSave(FunctionEntity entity) throws BusinessException {
+
+    }
+
     private void validPermission(FunctionEntity entity, int scenario) throws BusinessException {
         boolean flag = functionService.permission(entity);
         if (!flag) {

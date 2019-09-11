@@ -1,5 +1,6 @@
 package com.yfny.servicefstructure.entity;
 
+import com.yfny.utilscommon.annotation.relation.OneToMany;
 import com.yfny.utilscommon.basemvc.common.BaseEntity;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 功能结构管理功能对象Entity
@@ -212,7 +214,11 @@ public class FunctionEntity extends BaseEntity {
     /**************************************此下为非数据库字段属性**************************************/
 
     @Transient
-    public String userName;
+    private String userName;
+
+    @OneToMany
+    @Transient
+    private List<PanelEntity> panelList;
 
     public String getUserName() {
         return userName;
@@ -222,4 +228,11 @@ public class FunctionEntity extends BaseEntity {
         this.userName = userName;
     }
 
+    public List<PanelEntity> getPanelList() {
+        return panelList;
+    }
+
+    public void setPanelList(List<PanelEntity> panelList) {
+        this.panelList = panelList;
+    }
 }

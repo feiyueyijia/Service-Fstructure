@@ -151,7 +151,7 @@ public class ProjectEntity extends BaseEntity {
     /**************************************此下为非数据库字段属性**************************************/
 
     @Transient
-    public String userName;
+    private String userName;
 
     public String getUserName() {
         return userName;

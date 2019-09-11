@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 功能结构管理场景面板对象Entity
@@ -41,11 +41,11 @@ public class PanelEntity extends BaseEntity {
 
     @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "create_time", length = 19)
-    private Timestamp createTime;
+    private Date createTime;
 
     @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "update_time", length = 19)
-    private Timestamp updateTime;
+    private Date updateTime;
 
     @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "function_id", length = 64)
@@ -103,19 +103,19 @@ public class PanelEntity extends BaseEntity {
         this.sort = sort;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Timestamp getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Timestamp updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
