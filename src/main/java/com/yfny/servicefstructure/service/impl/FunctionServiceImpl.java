@@ -64,4 +64,8 @@ public class FunctionServiceImpl extends BaseServiceImpl<FunctionEntity> impleme
         return false;
     }
 
+    public FunctionEntity selectComplexById(FunctionEntity entity) throws BusinessException {
+        return functionMapper.selectComplexById(entity.getId());
+    }
+
 }

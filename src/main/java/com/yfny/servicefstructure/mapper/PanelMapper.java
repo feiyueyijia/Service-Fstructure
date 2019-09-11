@@ -4,6 +4,7 @@ import com.yfny.servicefstructure.builder.PanelSqlBuilder;
 import com.yfny.servicefstructure.entity.PanelEntity;
 import com.yfny.utilscommon.basemvc.producer.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
@@ -32,5 +33,14 @@ public interface PanelMapper extends BaseMapper<PanelEntity> {
      */
     @SelectProvider(type = PanelSqlBuilder.class, method = "buildFindPanelByORCondition")
     List<PanelEntity> findSimpleListByORCondition(@Param("panel") PanelEntity panel);
+
+    /**
+     * 根据外键查询相应对象（一对多关系）
+     *
+     * @param functionId 外键
+     * @return 返回对象列表为查询结果
+     */
+    @Select("select * from t_fstructure_panel where function_id = #{functionId}")
+    List<PanelEntity> findPanelByFunctionId(String functionId);
 
 }

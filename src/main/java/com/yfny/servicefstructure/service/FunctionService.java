@@ -19,4 +19,6 @@ public interface FunctionService extends BaseService<FunctionEntity> {
 
     boolean isLocked(FunctionEntity entity) throws BusinessException;
 
+    FunctionEntity selectComplexById(FunctionEntity entity) throws BusinessException;
+
 }

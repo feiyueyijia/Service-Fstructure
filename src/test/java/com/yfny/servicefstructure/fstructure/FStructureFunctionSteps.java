@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.yfny.servicefstructure.base.APIBaseTest;
 import com.yfny.servicefstructure.constant.FunctionConstant;
 import com.yfny.servicefstructure.entity.FunctionEntity;
+import com.yfny.servicefstructure.entity.PanelEntity;
 import com.yfny.utilscommon.basemvc.common.BaseEntity;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -12,6 +13,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.*;
@@ -135,27 +137,19 @@ public class FStructureFunctionSteps extends APIBaseTest {
         deleteResultMessage = result.getString("message");
     }
 
+    @Test
     @When("^功能--查看功能 \"([^\"]*)\" 详细信息$")
-    public void findFunctionDetail(String name) throws Exception {
+    public void findFunctionDetail() throws Exception {
 
         /*--------------------开始业务组装--------------------*/
 
         Map<String, String> paramsMap = new HashMap<>();
 
         FunctionEntity function = new FunctionEntity();
-        function.setName(name);
+        function.setId("44");
+        function.setName("3");
+        function.setLevel(0);
         function.setAction(BaseEntity.SELECT);
-
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject != null) {
-                String functionName = jsonObject.getString("name");
-                if (name.equals(functionName)) {
-                    String id = jsonObject.getString("id");
-                    function.setId(id);
-                }
-            }
-        }
 
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(function);
@@ -163,11 +157,11 @@ public class FStructureFunctionSteps extends APIBaseTest {
         /*--------------------业务组装结束--------------------*/
 
         //指定要请求的接口路径
-        //String url = "/function/selectOne";
+        String url = "/function/selectComplexById";
 
         //模拟页面请求
-        //JSONObject result = postRequest(url, content);
-        //queryResultMessage = result.getString("message");
+        JSONObject result = postRequest(url, content);
+        queryResultMessage = result.getString("message");
     }
 
     @When("^功能--点击新建场景面板按钮$")
@@ -315,8 +309,38 @@ public class FStructureFunctionSteps extends APIBaseTest {
     }
 
     @And("^功能--点击保存按钮$")
-    public void confirmSave() {
+    public void confirmSave() throws Exception {
 
+        /*--------------------开始业务组装--------------------*/
+
+        Map<String, String> paramsMap = new HashMap<>();
+
+        FunctionEntity function = new FunctionEntity();
+        List<PanelEntity> panelList = new ArrayList<>();
+        PanelEntity panel = new PanelEntity();
+        panel.setFunctionId("44");
+        panel.setName("");
+        panel.setType("");
+        panel.setSort(0);
+        panel.setCreateTime(new Date());
+        panel.setUpdateTime(new Date());
+
+        function.setId("44");
+        function.setAction(BaseEntity.UPDATE);
+        function.setPanelList(panelList);
+
+
+        //转换成ajax请求的json数据
+        String content = JSONObject.toJSONString(function);
+
+        /*--------------------业务组装结束--------------------*/
+
+        //指定要请求的接口路径
+        String url = "/function/updateSelective";
+
+        //模拟页面请求
+        JSONObject result = postRequest(url, content);
+        updateResultMessage = result.getString("message");
     }
 
     @Then("^功能--返回新建功能执行结果 \"([^\"]*)\"$")

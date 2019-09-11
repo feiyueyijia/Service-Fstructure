@@ -228,6 +228,27 @@ public class FunctionController {
         return InvokeResult.readResult(result, "20214", "20215");
     }
 
+    /**
+     * 查询功能结构
+     *
+     * @param entity 对象实体
+     * @return 返回单个项目的功能树结构
+     */
+    @PostMapping(value = "/selectComplexById")
+    @ResponseBody
+    public InvokeResult selectComplexById(@RequestBody FunctionEntity entity) throws Exception {
+        FunctionEntity result = functionService.selectComplexById(entity);
+        return InvokeResult.readResult(result, "20208", "20209");
+    }
+
+    @PostMapping(value = "/save")
+    @ResponseBody
+    public InvokeResult save(@RequestBody FunctionEntity entity) throws Exception {
+        functionValid.validSave(entity);
+        int result = functionService.updateSelective(entity);
+        return InvokeResult.writeResult(result, "20216", "20217");
+    }
+
     @PostMapping(value = "/lock")
     @ResponseBody
     public InvokeResult lock(@RequestBody FunctionEntity entity) throws Exception {

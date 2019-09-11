@@ -3,8 +3,8 @@ package com.yfny.servicefstructure.mapper;
 import com.yfny.servicefstructure.builder.FunctionSqlBuilder;
 import com.yfny.servicefstructure.entity.FunctionEntity;
 import com.yfny.utilscommon.basemvc.producer.BaseMapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
@@ -32,5 +32,19 @@ public interface FunctionMapper extends BaseMapper<FunctionEntity> {
      */
     @SelectProvider(type = FunctionSqlBuilder.class, method = "buildFindFunctionByORCondition")
     List<FunctionEntity> findSimpleListByORCondition(@Param("function") FunctionEntity function);
+
+    /**
+     * 根据实体中的主键进行查询单个对象
+     *
+     * @param id 对象实体主键
+     * @return 返回单个对象为查询结果
+     */
+    @Select("select * from t_fstructure_function where id = #{id}")
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "id", property = "panelList",
+                    many = @Many(select = "com.yfny.servicefstructure.mapper.PanelMapper.findPanelByFunctionId", fetchType = FetchType.EAGER))
+    })
+    FunctionEntity selectComplexById(String id);
 
 }
