@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import java.util.List;
 
 /**
- * 功能结构管理面板对象Mapper
+ * 功能结构管理场景面板对象Mapper
  * Author auto
  * Date  2019-09-10
  */

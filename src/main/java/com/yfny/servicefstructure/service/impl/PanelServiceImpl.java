@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 功能结构管理面板对象ServiceImpl
+ * 功能结构管理场景面板对象ServiceImpl
  * Author auto
  * Date  2019-09-05
  */

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 功能结构管理面板对象Controller
+ * 功能结构管理场景面板对象Controller
  * Author auto
  * Date  2019-09-05
  */

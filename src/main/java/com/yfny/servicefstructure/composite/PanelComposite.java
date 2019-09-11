@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 /**
- * 功能结构管理面板对象Composite
+ * 功能结构管理场景面板对象Composite
  * Author auto
  * Date  2019-09-10
  */

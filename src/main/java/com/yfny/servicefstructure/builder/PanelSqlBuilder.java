@@ -6,7 +6,7 @@ import org.apache.ibatis.jdbc.SQL;
 import java.util.Map;
 
 /**
- * 功能结构管理面板对象SqlBuilder
+ * 功能结构管理场景面板对象SqlBuilder
  * Author auto
  * Date  2019-09-10
  */

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.yfny.servicefstructure.base.APIBaseTest;
 import com.yfny.servicefstructure.constant.ProjectConstant;
 import com.yfny.servicefstructure.entity.ProjectEntity;
+import com.yfny.utilscommon.basemvc.common.BaseEntity;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -119,6 +120,7 @@ public class FStructureProjectSteps extends APIBaseTest {
         Map<String, String> paramsMap = new HashMap<>();
 
         project.setName(name);
+        project.setAction(BaseEntity.DELETE);
 
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(project);
@@ -149,6 +151,7 @@ public class FStructureProjectSteps extends APIBaseTest {
         project.setLockin(ProjectConstant.UNLOCK);
         project.setCreateTime(new Date());
         project.setUpdateTime(new Date());
+        project.setAction(BaseEntity.INSERT);
 
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(project);
@@ -172,6 +175,7 @@ public class FStructureProjectSteps extends APIBaseTest {
 
         project.setDescription(description);
         project.setProgress(progress);
+        project.setAction(BaseEntity.UPDATE);
 
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(project);
@@ -205,6 +209,7 @@ public class FStructureProjectSteps extends APIBaseTest {
 
         ProjectEntity project = new ProjectEntity();
         project.setName(name);
+        project.setAction(BaseEntity.SELECT);
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);

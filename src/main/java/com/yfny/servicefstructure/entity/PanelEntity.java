@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 
 /**
- * 功能结构管理面板对象Entity
+ * 功能结构管理场景面板对象Entity
  * Author auto
  * Date  2019-09-09
  */
