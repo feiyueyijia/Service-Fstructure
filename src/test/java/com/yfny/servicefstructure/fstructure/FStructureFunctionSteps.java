@@ -13,7 +13,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.*;
@@ -72,17 +71,7 @@ public class FStructureFunctionSteps extends APIBaseTest {
         Map<String, String> paramsMap = new HashMap<>();
 
         function.setName(name);
-
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject != null) {
-                String functionName = jsonObject.getString("name");
-                if (name.equals(functionName)) {
-                    String id = jsonObject.getString("id");
-                    function.setId(id);
-                }
-            }
-        }
+        this.setParam();
 
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(function);
@@ -100,18 +89,7 @@ public class FStructureFunctionSteps extends APIBaseTest {
     @When("^功能--选择 \"([^\"]*)\" 右键点击修改功能按钮$")
     public void updateFunction(String name) throws Exception {
         function.setName(name);
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject != null) {
-                String functionName = jsonObject.getString("name");
-                if (name.equals(functionName)) {
-                    String id = jsonObject.getString("id");
-                    String lock = jsonObject.getString("lockin");
-                    function.setId(id);
-                    function.setLockin(lock);
-                }
-            }
-        }
+        this.setParam();
     }
 
     @When("^功能--选择 \"([^\"]*)\" 右键点击删除功能按钮$")
@@ -137,19 +115,17 @@ public class FStructureFunctionSteps extends APIBaseTest {
         deleteResultMessage = result.getString("message");
     }
 
-    @Test
     @When("^功能--查看功能 \"([^\"]*)\" 详细信息$")
-    public void findFunctionDetail() throws Exception {
+    public void findFunctionDetail(String name) throws Exception {
 
         /*--------------------开始业务组装--------------------*/
 
         Map<String, String> paramsMap = new HashMap<>();
 
-        FunctionEntity function = new FunctionEntity();
-        function.setId("44");
-        function.setName("3");
-        function.setLevel(0);
+        function.setName(name);
         function.setAction(BaseEntity.SELECT);
+
+        this.setParam();
 
         //转换成ajax请求的json数据
         String content = JSONObject.toJSONString(function);
@@ -294,7 +270,7 @@ public class FStructureFunctionSteps extends APIBaseTest {
     }
 
     @And("^功能--选择类型 场景类型 输入 场景名称 和 场景描述$")
-    public void inputPanel(List<String> types, List<String> names, List<String> descriptions) {
+    public void inputPanel(List<PanelEntity> types) {
 
     }
 
@@ -381,4 +357,20 @@ public class FStructureFunctionSteps extends APIBaseTest {
     private static String uuid() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
+
+    private void setParam() {
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject != null) {
+                String functionName = jsonObject.getString("name");
+                if (function.getName().equals(functionName)) {
+                    String id = jsonObject.getString("id");
+                    String lock = jsonObject.getString("lockin");
+                    function.setId(id);
+                    function.setLockin(lock);
+                }
+            }
+        }
+    }
+
 }
