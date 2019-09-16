@@ -41,15 +41,19 @@ public class ProjectEntity extends BaseEntity {
     @Column(name = "progress_bar", length = 11)
     private String progressBar;
 
+    @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "create_time", length = 19)
     private Date createTime;
 
+    @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "update_time", length = 19)
     private Date updateTime;
 
+    @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "keep_time", length = 11)
     private int keepTime;
 
+    @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "sort", length = 11)
     private int sort;
 

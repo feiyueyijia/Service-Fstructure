@@ -1,5 +1,6 @@
 package com.yfny.servicefstructure.entity;
 
+import com.yfny.utilscommon.annotation.relation.ForeignKey;
 import com.yfny.utilscommon.basemvc.common.BaseEntity;
 
 import javax.persistence.Column;
@@ -43,6 +44,7 @@ public class ExampleEntity extends BaseEntity {
     @Column(name = "update_time", length = 19)
     private Date updateTime;
 
+    @ForeignKey
     @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "content_id", length = 64)
     private String contentId;

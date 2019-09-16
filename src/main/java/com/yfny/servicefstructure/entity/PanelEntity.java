@@ -1,12 +1,16 @@
 package com.yfny.servicefstructure.entity;
 
+import com.yfny.utilscommon.annotation.relation.ForeignKey;
+import com.yfny.utilscommon.annotation.relation.OneToMany;
 import com.yfny.utilscommon.basemvc.common.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 功能结构管理场景面板对象Entity
@@ -47,6 +51,7 @@ public class PanelEntity extends BaseEntity {
     @Column(name = "update_time", length = 19)
     private Date updateTime;
 
+    @ForeignKey
     @NotEmpty(message = "存在不能为空的字段未填写")
     @Column(name = "function_id", length = 64)
     private String functionId;
@@ -128,4 +133,16 @@ public class PanelEntity extends BaseEntity {
     }
 
     /**************************************此下为非数据库字段属性**************************************/
+
+    @OneToMany
+    @Transient
+    private List<ContentEntity> contentList;
+
+    public List<ContentEntity> getContentList() {
+        return contentList;
+    }
+
+    public void setContentList(List<ContentEntity> contentList) {
+        this.contentList = contentList;
+    }
 }
