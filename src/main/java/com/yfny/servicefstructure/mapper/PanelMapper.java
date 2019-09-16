@@ -3,9 +3,8 @@ package com.yfny.servicefstructure.mapper;
 import com.yfny.servicefstructure.builder.PanelSqlBuilder;
 import com.yfny.servicefstructure.entity.PanelEntity;
 import com.yfny.utilscommon.basemvc.producer.BaseMapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
@@ -41,6 +40,11 @@ public interface PanelMapper extends BaseMapper<PanelEntity> {
      * @return 返回对象列表为查询结果
      */
     @Select("select * from t_fstructure_panel where function_id = #{functionId}")
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "id", property = "contentList",
+                    many = @Many(select = "com.yfny.servicefstructure.mapper.ContentMapper.findContentByPanelId", fetchType = FetchType.EAGER))
+    })
     List<PanelEntity> findPanelByFunctionId(String functionId);
 
 }

@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.yfny.servicefstructure.base.APIBaseTest;
 import com.yfny.servicefstructure.constant.FunctionConstant;
+import com.yfny.servicefstructure.entity.ContentEntity;
+import com.yfny.servicefstructure.entity.ExampleEntity;
 import com.yfny.servicefstructure.entity.FunctionEntity;
 import com.yfny.servicefstructure.entity.PanelEntity;
 import com.yfny.utilscommon.basemvc.common.BaseEntity;
@@ -94,25 +96,8 @@ public class FStructureFunctionSteps extends APIBaseTest {
 
     @When("^功能--选择 \"([^\"]*)\" 右键点击删除功能按钮$")
     public void deleteFunction(String name) throws Exception {
-
-        /*--------------------开始业务组装--------------------*/
-
-        Map<String, String> paramsMap = new HashMap<>();
-
         function.setName(name);
         function.setAction(BaseEntity.DELETE);
-
-        //转换成ajax请求的json数据
-        String content = JSONObject.toJSONString(function);
-
-        /*--------------------业务组装结束--------------------*/
-
-        //指定要请求的接口路径
-        String url = "/function/delete";
-
-        //模拟页面请求
-        JSONObject result = postRequest(url, content);
-        deleteResultMessage = result.getString("message");
     }
 
     @When("^功能--查看功能 \"([^\"]*)\" 详细信息$")
@@ -207,8 +192,23 @@ public class FStructureFunctionSteps extends APIBaseTest {
     }
 
     @And("^功能--确认删除操作$")
-    public void confirmDelete() {
+    public void confirmDelete() throws Exception {
 
+        /*--------------------开始业务组装--------------------*/
+
+        Map<String, String> paramsMap = new HashMap<>();
+
+        //转换成ajax请求的json数据
+        String content = JSONObject.toJSONString(function);
+
+        /*--------------------业务组装结束--------------------*/
+
+        //指定要请求的接口路径
+        String url = "/function/delete";
+
+        //模拟页面请求
+        JSONObject result = postRequest(url, content);
+        deleteResultMessage = result.getString("message");
     }
 
     @And("^功能--查看功能 \"([^\"]*)\" 基础信息$")
@@ -270,18 +270,59 @@ public class FStructureFunctionSteps extends APIBaseTest {
     }
 
     @And("^功能--选择类型 场景类型 输入 场景名称 和 场景描述$")
-    public void inputPanel(List<PanelEntity> types) {
-
+    public void inputPanel(List<PanelEntity> panelList) {
+        for (PanelEntity panel : panelList) {
+            panel.setFunctionId(function.getId());
+            panel.setAnnotation("@Test");
+            panel.setCreateTime(new Date());
+            panel.setUpdateTime(new Date());
+            panel.setSort(0);
+            panel.setAction(BaseEntity.INSERT);
+        }
+        function.setPanelList(panelList);
     }
 
     @And("^功能--填写场景执行内容$")
-    public void inputContent(List<String> panels, List<String> names, List<String> contents) {
-
+    public void inputContent(List<ContentEntity> contentList) {
+        List<PanelEntity> panelList = function.getPanelList();
+        for (ContentEntity content : contentList) {
+            content.setFunctionId(function.getId());
+            content.setSort(0);
+            content.setCreateTime(new Date());
+            content.setUpdateTime(new Date());
+            content.setAction(BaseEntity.INSERT);
+            for (PanelEntity panel : panelList) {
+                if (content.getParam1().equals(panel.getName())) {
+                    if (panel.getContentList() == null) {
+                        panel.setContentList(new ArrayList<>());
+                    }
+                    panel.getContentList().add(content);
+                }
+            }
+        }
     }
 
     @And("^功能--填写场景大纲执行示例$")
-    public void inputExample(List<String> contents, List<String> keywords, List<String> values) {
-
+    public void inputExample(List<ExampleEntity> exampleList) {
+        List<PanelEntity> panelList = function.getPanelList();
+        for (ExampleEntity example : exampleList) {
+            example.setFunctionId(function.getId());
+            example.setSort(0);
+            example.setCreateTime(new Date());
+            example.setUpdateTime(new Date());
+            example.setAction(BaseEntity.INSERT);
+            for (PanelEntity panel : panelList) {
+                List<ContentEntity> contentList = panel.getContentList();
+                for (ContentEntity content : contentList) {
+                    if (example.getParam1().equals(content.getContent())) {
+                        if (content.getExampleList() == null) {
+                            content.setExampleList(new ArrayList<>());
+                        }
+                        content.getExampleList().add(example);
+                    }
+                }
+            }
+        }
     }
 
     @And("^功能--点击保存按钮$")
@@ -291,19 +332,36 @@ public class FStructureFunctionSteps extends APIBaseTest {
 
         Map<String, String> paramsMap = new HashMap<>();
 
-        FunctionEntity function = new FunctionEntity();
-        List<PanelEntity> panelList = new ArrayList<>();
-        PanelEntity panel = new PanelEntity();
-        panel.setFunctionId("44");
-        panel.setName("");
-        panel.setType("");
-        panel.setSort(0);
-        panel.setCreateTime(new Date());
-        panel.setUpdateTime(new Date());
-
-        function.setId("44");
-        function.setAction(BaseEntity.UPDATE);
-        function.setPanelList(panelList);
+//        FunctionEntity function = new FunctionEntity();
+//
+//        List<ContentEntity> contentList = new ArrayList<>();
+//        ContentEntity scenario = new ContentEntity();
+//        scenario.setFunctionId("44");
+//        scenario.setKeyword("Given");
+//        scenario.setContent("12345");
+//        scenario.setSort(0);
+//        scenario.setCreateTime(new Date());
+//        scenario.setUpdateTime(new Date());
+//        scenario.setAction(BaseEntity.INSERT);
+//        contentList.add(scenario);
+//
+//        List<PanelEntity> panelList = new ArrayList<>();
+//        PanelEntity panel = new PanelEntity();
+//        //panel.setFunctionId("44");
+//        panel.setName("场景面板");
+//        panel.setType("BACKGROUND");
+//        panel.setSort(0);
+//        panel.setCreateTime(new Date());
+//        panel.setUpdateTime(new Date());
+//        panel.setContentList(contentList);
+//        panel.setAction(BaseEntity.INSERT);
+//
+//        panelList.add(panel);
+//
+//        function.setId("44");
+//        function.setAction(BaseEntity.UPDATE);
+//        function.setUserName("管理员");
+//        function.setPanelList(panelList);
 
 
         //转换成ajax请求的json数据
